@@ -79,7 +79,7 @@ chmod 777 /etc/init.d/qdcsvc.sh
 
 # Fix a Samba problem with DNS not being found (see https://wiki.samba.org/index.php/Troubleshooting_Samba_Domain_Members)
 # Yes, this is ugly as hell; it inserts bash commands after a specific point in the script, and only $NET_IFACE is actually replaced now
-sed -i "/# JOIN AD Domain using net command/a\\
+sed -i "/\# Join AD Domain using net command/a\\
 DNS_IP=\`ifconfig $NET_IFACE | grep 'inet addr:' | cut -d: -f2 | awk '{print \$1}'\`\\
 DNS_FULL=\`hostname\`\\
 DNS_SHORT=\`hostname | cut -d \".\" -f 1\`\\
@@ -156,6 +156,9 @@ ln -s /opt/FreeRDP/winpr/libwinpr/libwinpr.so.1.1.0 libwinpr.so.1.1
 cd /opt/VDEFORLINUX/Provisioning
 ./vwts.all xrdp
 
+# Remove the copy of the qdcip script in bin, no point in it being there
+rm /usr/local/bin/qdcip.all
+
 # Remove some upstart stuff that's not needed and would only cause havoc if it ran
 rm /etc/init/vW_provision.conf
 rm /etc/init/vW_provision-wait.conf
@@ -168,7 +171,7 @@ After = NetworkManager-wait-online.service
 Wants = NetworkManager-wait-online.service
 
 [Service]
-ExecStart=/usr/local/bin/qdcip.all
+ExecStart=/opt/VDEFORLINUX/Provisioning/qdcip.all
 
 [Install]
 WantedBy=multi-user.target
@@ -181,9 +184,6 @@ systemctl enable qdcip.service
 
 ### Install QDCSVC as a systemd service
 
-# First, copy the file, the QDC/XRDP script doesn't do it for us
-cp /opt/VDEFORLINUX/VirtualDesktopExtension/x64/qdcsvc /usr/local/bin/qdcsvc
-
 # Make it depend on qdcip since qdcip expects to run first
 cat > /etc/systemd/system/qdcsvc.service << EOF
 [Unit]
@@ -192,7 +192,7 @@ After = qdcip.service
 
 [Service]
 Type=forking
-ExecStart=/usr/local/bin/qdcsvc
+ExecStart=/opt/VDEFORLINUX/VirtualDesktopExtension/x64/qdcsvc
 Restart=on-failure
 
 [Install]
@@ -223,6 +223,13 @@ sed -i '/\[Service\]/a Restart=always' /lib/systemd/system/xrdp-sesman.service
 systemctl daemon-reload
 systemctl enable xrdp.service
 systemctl enable xrdp-sesman.service
+
+# The xrdp.sh script is an old thing that shouldn't be used any more; replace it with a systemd shim
+# Otherwise, `xrdp.sh restart` hangs because it waits for xrdp to stop but we made it `Restart=always` above
+cat > /etc/xrdp/xrdp.sh << EOF
+# This script has been replaced by a systemd wrapper
+systemctl \$1 xrdp
+EOF
 
 # Disable the LightDM service, otherwise it creates an X server on boot, which confuses XRDP
 systemctl disable lightdm

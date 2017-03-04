@@ -22,5 +22,5 @@ EOF
 
 # Start the minion only after QDCIP, so that the hostname is correct
 # since the machine gets its hostname via LDAP
-sed -i 's/network.target/qdcip.service/' /lib/systemd/system/salt-minion.service
-systemctl daemon-reload
+echo "systemctl enable salt-minion" >> /opt/VDEFORLINUX/Provisioning/qdcip.all
+echo "systemctl start salt-minion" >> /opt/VDEFORLINUX/Provisioning/qdcip.all
