@@ -3,9 +3,9 @@
 ### Installs Salt. Change the configuration below if you need it.
 
 # Get Salt via its bootstrap script
-wget -O install_salt.sh https://bootstrap.saltstack.com
-sh install_salt.sh -P
-rm install_salt.sh
+wget -O salt.sh https://bootstrap.saltstack.com
+sh salt.sh -P
+rm salt.sh
 
 # The bootstrap script starts the minion immediately, but we don't want that
 systemctl stop salt-minion

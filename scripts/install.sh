@@ -58,6 +58,9 @@ sed -i 's/xrdppkgsDeb=.*$/xrdppkgsDeb="autoconf bison flex gcc g++ git intltool 
 # Download XRDP ourselves, the script will use it
 git clone https://github.com/neutrinolabs/xrdp.git /opt/xrdp.git
 
+# Patch the XRDP source to increase the timeout for creating a session
+# xauth takes quite a while...
+sed -i 's/i > 40/i > 9999/' /opt/xrdp.git/sesman/session.c
 
 ### Work around QDCIP issues
 
@@ -231,7 +234,7 @@ cat > /etc/xrdp/xrdp.sh << EOF
 systemctl \$1 xrdp
 EOF
 
-# Disable the LightDM service, otherwise it creates an X server on boot, which confuses XRDP
+# Disable the LightDM service, the VM is never getting connected to directly
 systemctl disable lightdm
 
 # Set the proper config
