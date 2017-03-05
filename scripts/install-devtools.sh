@@ -1,6 +1,18 @@
 #!/bin/sh
+# Installs development tools
 
-### Installs Eclipse (latest version)
+
+### Installs Code::Blocks
+
+add-apt-repository -y ppa:damien-moore/codeblocks-stable
+apt update
+apt install -y codeblocks codeblocks-contrib
+
+
+### Installs Eclipse
+
+# Install Java first
+apt install -y openjdk-8-jdk
 
 # Download and extract it
 wget -O eclipse.tar.gz 'http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz&r=1'
@@ -21,7 +33,12 @@ Icon=/opt/eclipse/icon.xpm
 Comment=Integrated Development Environment
 NoDisplay=false
 Categories=Development;IDE;
-Name[en]=eclipse.desktop
+Name[en]=Eclipse
 EOF
 
 desktop-file-install /usr/share/applications/eclipse.desktop
+
+
+### Installs Geany
+
+apt install -y geany

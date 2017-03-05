@@ -1,4 +1,6 @@
 #!/bin/sh
+# Installs the necessary tools to run Xubuntu 16.04 in a vWorkspace environment
+
 
 ### Check for prerequisites
 ### First the platform, then the stuff that can be changed
@@ -59,8 +61,9 @@ sed -i 's/xrdppkgsDeb=.*$/xrdppkgsDeb="autoconf bison flex gcc g++ git intltool 
 git clone https://github.com/neutrinolabs/xrdp.git /opt/xrdp.git
 
 # Patch the XRDP source to increase the timeout for creating a session
-# xauth takes quite a while...
+# xauth takes quite a while on the first run...
 sed -i 's/i > 40/i > 9999/' /opt/xrdp.git/sesman/session.c
+
 
 ### Work around QDCIP issues
 
