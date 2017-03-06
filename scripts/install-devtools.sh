@@ -39,6 +39,16 @@ EOF
 desktop-file-install /usr/share/applications/eclipse.desktop
 
 
+### Installs Emacs
+
+apt install -y emacs
+
+
 ### Installs Geany
 
 apt install -y geany
+
+
+## Installs Vim
+
+apt install -y vim
