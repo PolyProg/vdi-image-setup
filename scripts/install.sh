@@ -49,20 +49,9 @@ fi
 apt install -y git
 
 
-### Change the QCPIP script for our needs
+### Prevent VWTS from compiling XRDP, we do our own compile
 
-# Change the root directory to /opt
-sed -i 's/ROOTDIR=.*$/ROOTDIR="\/opt"/' /opt/VDEFORLINUX/Provisioning/vwts.all
-
-# Set the XRDP dependencies to the latest ones, from https://github.com/neutrinolabs/xrdp/wiki/Building-on-Debian-8
-sed -i 's/xrdppkgsDeb=.*$/xrdppkgsDeb="autoconf bison flex gcc g++ git intltool libfuse-dev libjpeg-dev libmp3lame-dev libpam0g-dev libpixman-1-dev libssl-dev libtool libx11-dev libxfixes-dev libxml2-dev libxrandr-dev make nasm pkg-config python-libxml2 xserver-xorg-dev xsltproc xutils xutils-dev"/' /opt/VDEFORLINUX/Provisioning/vwts.all
-
-# Download XRDP ourselves, the script will use it
-git clone https://github.com/neutrinolabs/xrdp.git /opt/xrdp.git
-
-# Patch the XRDP source to increase the timeout for creating a session
-# xauth takes quite a while on the first run...
-sed -i 's/i > 40/i > 9999/' /opt/xrdp.git/sesman/session.c
+sed -i 's/xrdp_inst "$x11Path"/:/' /opt/VDEFORLINUX/Provisioning/vwts.all
 
 
 ### Work around QDCIP issues
@@ -210,16 +199,40 @@ systemctl daemon-reload
 systemctl enable qdcsvc.service
 
 
-### Enable, fix and configure xrdp
+### Install, enable, fix and configure xrdp
+
+# Dependencies
+apt install -y autoconf bison flex gcc g++ intltool libfuse-dev libjpeg-dev libmp3lame-dev libpam0g-dev libpixman-1-dev libssl-dev libtool libx11-dev libxfixes-dev libxml2-dev libxrandr-dev make nasm pkg-config python-libxml2 xserver-xorg-dev xsltproc xutils xutils-dev
+
+# xrdp
+cd /opt
+git clone --recursive https://github.com/neutrinolabs/xrdp
+cd xrdp
+
+# Patch xrdp, as for some weird reason vWorkspace doesn't work otherwise
+NUMLOGONNORMAL=$(grep -n "RDP_LOGON_NORMAL" common/xrdp_constants.h | cut -d ":" -f1)
+sed -i ''${NUMLOGONNORMAL}'s/0x0033/0x0013/' common/xrdp_constants.h
+
+# Install xrdp normally - it's recommended to install it before xorgxrdp
+./bootstrap
+./configure --enable-fuse
+make
+make install
+
+# Install xorgxrdp, a.k.a. reusing the existing Xorg with xrdp
+cd /opt
+git clone https://github.com/neutrinolabs/xorgxrdp
+cd xorgxrdp
+./bootstrap
+./configure
+make
+make install
 
 # For some reason xrdp stuff is in /usr/local/sbin but expected to be in /usr/sbin
 ln -s /usr/local/sbin/xrdp /usr/sbin/xrdp
 ln -s /usr/local/sbin/xrdp-chansrv /usr/sbin/xrdp-chansrv
 ln -s /usr/local/sbin/xrdp-sesman /usr/sbin/xrdp-sesman
 ln -s /usr/local/sbin/xrdp-sessvc /usr/sbin/xrdp-sessvc
-
-# The QDCSVC script attempts to create an init.d start entry, but that doesn't work on Ubuntu 16.04
-# Instead, XRDP creates systemd services
 
 # We really want XRDP (and its session manager) to be restarted if it dies
 sed -i '/\[Service\]/a Restart=always' /lib/systemd/system/xrdp.service
@@ -236,9 +249,6 @@ cat > /etc/xrdp/xrdp.sh << EOF
 # This script has been replaced by a systemd wrapper
 systemctl \$1 xrdp
 EOF
-
-# Disable the LightDM service, the VM is never getting connected to directly
-systemctl disable lightdm
 
 # Set the proper config
 cp /etc/xrdp/xrdp.ini /etc/xrdp/xrdp.ini.ORIG
@@ -258,19 +268,15 @@ ssl_protocols=TLSv1, TLSv1.1, TLSv1.2
 
 allow_channels=true
 allow_multimon=true
-
 bitmap_cache=true
 bitmap_compression=true
 bulk_compression=true
-max_bpp=24
+max_bpp=32
 use_fastpath=both
-
-autorun=X11rdp
-
-; These three are set in the default config, not sure if they're important
 new_cursors=true
-blue=009cb5
-grey=dedede
+
+autorun=Xorg
+
 
 [Logging]
 EnableSyslog=true
@@ -286,15 +292,14 @@ rail=true
 xrdpvr=true
 tcutils=true
 
-[X11rdp]
-name=X11rdp
+[Xorg]
+name=Xorg
 lib=libxup.so
 username=ask
 password=ask
 ip=127.0.0.1
 port=-1
-xserverbpp=24
-code=10
+code=20
 EOF
 
 
