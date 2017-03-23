@@ -52,7 +52,7 @@ These instructions are designed to install a working Xubuntu 16.04 system from s
    - reboot, make sure you can graphically login as root
 (now is also a good time for a snapshot)
    - `apt install -y openssh-server`
-   - You may want to edit /etc/ssh/sshd_config to set PermitRootLogin to `yes` rather than `prohibit-password`, for convenience
+   - You may want to edit /etc/ssh/sshd_config to set PermitRootLogin to `yes` rather than `prohibit-password`, for convenience, then `systemctl restart sshd`
    - Put the VDEFORLINUX folder from the vWorkspace tools in /opt
    - Put the install.sh script in /root (a.k.a. root's home)
    - `./install.sh`
