@@ -1,4 +1,4 @@
 #!/bin/sh
 # Installs a web browser
 
-apt install -y firefox
+apt install -y midori
