@@ -49,8 +49,11 @@ fi
 apt install -y git
 
 
-### Prevent VWTS from compiling XRDP, we do our own compile
+### Remove some unneeded operations from the VWTS script
 
+# Prevent it from cloning xrdp
+sed -i 's/get_source$/:/' /opt/VDEFORLINUX/Provisioning/vwts.all
+# Prevent it from compiling xrdp
 sed -i 's/xrdp_inst "$x11Path"/:/' /opt/VDEFORLINUX/Provisioning/vwts.all
 
 
@@ -215,7 +218,7 @@ sed -i ''${NUMLOGONNORMAL}'s/0x0033/0x0013/' common/xrdp_constants.h
 
 # Install xrdp normally - it's recommended to install it before xorgxrdp
 ./bootstrap
-./configure --enable-fuse
+./configure
 make
 make install
 
