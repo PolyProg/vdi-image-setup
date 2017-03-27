@@ -44,6 +44,13 @@ fi
 # TODO check vWorkspace expected version (8.6.1) - but how?
 
 
+### Update dependencies, just in case
+
+apt update
+apt upgrade -y
+apt dist-upgrade -y
+apt autoremove -y --purge
+
 ### Install git, since the software this script installs is git-cloned
 
 apt install -y git
