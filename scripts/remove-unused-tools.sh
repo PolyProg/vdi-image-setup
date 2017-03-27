@@ -7,6 +7,11 @@
 rm /usr/share/applications/exo-mail-reader.desktop
 
 
+### Remove the "About XFCE" shortcut, useless
+
+rm /usr/share/applications/xfce4-about.desktop
+
+
 ### Uninstalls QT4 tools, which come with xubuntu-core
 
 apt purge -y qt4-dev-tools
