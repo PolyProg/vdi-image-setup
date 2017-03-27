@@ -10,4 +10,4 @@ rm /usr/share/applications/exo-mail-reader.desktop
 ### Uninstalls QT4 tools, which come with xubuntu-core
 
 apt purge -y qt4-dev-tools
-apt autoremove --purge
+apt autoremove -y --purge
