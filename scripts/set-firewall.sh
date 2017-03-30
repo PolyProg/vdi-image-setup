@@ -24,3 +24,6 @@ iptables -A OUTPUT -p tcp --dport 80 -j DROP
 
 # Drop rest of HTTPS
 iptables -A OUTPUT -p tcp --dport 443 -j DROP
+
+# Persist rules
+apt install -y iptables-persistent
