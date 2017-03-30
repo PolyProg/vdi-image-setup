@@ -13,8 +13,10 @@ cat > /opt/keyboard.sh << EOF
 sleep 2
 setxkbmap $@
 EOF
+chmod 777 /opt/keyboard.sh
 
-cat > /etc/xdg/autostart/Keyboard.desktop << EOF
+mkdir -p /etc/skel/.config/autostart
+cat > /etc/skel/.config/autostart/Keyboard.desktop << EOF
 [Desktop Entry]
 Version=1.0
 Name=Script
@@ -24,3 +26,5 @@ Terminal=false
 StartupNotify=false
 Hidden=false
 EOF
+
+chmod 777 /etc/skel/.config/autostart/Keyboard.desktop
