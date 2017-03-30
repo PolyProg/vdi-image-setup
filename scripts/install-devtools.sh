@@ -49,6 +49,11 @@ apt install -y emacs
 apt install -y geany
 
 
-## Installs Vim
+### Installs NetBeans
+
+apt install -y netbeans
+
+
+### Installs Vim
 
 apt install -y vim
