@@ -18,6 +18,8 @@ master: master.hc2.ch
 verify_env: True
 hash_type: sha256
 state_verbose: False
+tcp_keepalive: True
+tcp_keepalive_idle: 60
 EOF
 
 # Start the minion only after QDCIP, so that the hostname is correct
