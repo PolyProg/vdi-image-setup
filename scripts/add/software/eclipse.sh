@@ -1,15 +1,6 @@
 #!/bin/sh
-# Installs development tools
-
-
-### Installs Code::Blocks
-
-add-apt-repository -y ppa:damien-moore/codeblocks-stable
-apt update
-apt install -y codeblocks codeblocks-contrib
-
-
-### Installs Eclipse
+# Installs Eclipse Neon
+# TODO update (or better, find a way to always have the latest one)
 
 # Install Java first
 apt install -y openjdk-8-jdk
@@ -37,23 +28,3 @@ Name[en]=Eclipse
 EOF
 
 desktop-file-install /usr/share/applications/eclipse.desktop
-
-
-### Installs Emacs
-
-apt install -y emacs
-
-
-### Installs Geany
-
-apt install -y geany
-
-
-### Installs NetBeans
-
-apt install -y netbeans
-
-
-### Installs Vim
-
-apt install -y vim

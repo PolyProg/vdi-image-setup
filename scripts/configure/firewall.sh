@@ -2,15 +2,17 @@
 # Sets HTTP/S firewall rules with a whitelist
 
 if [ $# -eq 0 ]; then
-  echo "No arguments given, all HTTP/S traffic will be banned"
-else
-  echo "HTTP/S traffic will only be allowed for $@"
+  echo "This scripts expects the allowed URLs as arguments" >&2
+  exit 1
 fi
+
+# Uninstall the default ufw, we don't need it, let's not have 2 firewalls
+apt purge -y ufw
 
 # Allow HTTP/S to all args
 for url in "$@"; do
-  iptables -A OUTPUT -p tcp -d $url --dport 80 -j ACCEPT
-  iptables -A OUTPUT -p tcp -d $url --dport 443 -j ACCEPT
+  iptables -A OUTPUT -p tcp -d "$url" --dport 80 -j ACCEPT
+  iptables -A OUTPUT -p tcp -d "$url" --dport 443 -j ACCEPT
 done
 
 # Allow loopback
