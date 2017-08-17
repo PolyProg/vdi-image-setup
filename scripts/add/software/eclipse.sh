@@ -50,6 +50,8 @@ install http://download.eclipse.org/releases/photon org.eclipse.jdt.feature.grou
 
 # C/C++ development tools
 install http://download.eclipse.org/releases/photon org.eclipse.cdt.feature.group
+install http://download.eclipse.org/releases/photon org.eclipse.cdt.build.crossgcc.feature.group
+# we could also use org.eclipse.cdt.managedbuilder.llvm.feature.group for LLVM
 
 # PyDev, a.k.a. Python for Eclipse
 install http://www.pydev.org/updates org.python.pydev.feature.feature.group
