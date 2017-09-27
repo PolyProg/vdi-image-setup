@@ -43,8 +43,6 @@ install() {
           -installIU $2
 }
 
-cd /opt/eclipse
-
 # Java development tools
 install http://download.eclipse.org/releases/photon org.eclipse.jdt.feature.group
 
