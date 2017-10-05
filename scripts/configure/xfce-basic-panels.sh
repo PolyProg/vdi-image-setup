@@ -3,6 +3,7 @@
 # TODO what can we remove here?
 
 mkdir -p /etc/skel/.config/menus
+mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml
 
 # Applications menu
 cat > '/etc/skel/.config/menus/xfce-applications.menu' << 'EOF'
