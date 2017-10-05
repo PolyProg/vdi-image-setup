@@ -10,20 +10,20 @@ fi
 ./install.sh
 
 # Basic utilities
-./add/archiver.sh
-./add/browser.sh
-./add/pdf-reader.sh
+./add/software/archiver.sh
+./add/software/browser.sh
+./add/software/pdf-reader.sh
 
 # Dev tools
-./add/codeblocks.sh
-./add/eclipse.sh
-./add/emacs.sh
-./add/geany.sh
-./add/netbeans.sh
-./add/vim.sh
+./add/software/codeblocks.sh
+./add/software/eclipse.sh
+./add/software/emacs.sh
+./add/software/geany.sh
+./add/software/netbeans.sh
+./add/software/vim.sh
 
 # Salt
-./add/salt.sh 'master.hc2.ch'
+./add/software/salt.sh 'master.hc2.ch'
 
 # Basic desktop panels
 ./configure/xfce-basic-panels.sh
