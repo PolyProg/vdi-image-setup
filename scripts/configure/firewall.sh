@@ -32,5 +32,7 @@ iptables -A OUTPUT -p tcp --dport 443 -j DROP
 iptables -I INPUT 2 -p tcp --dport 5203 -j ACCEPT
 iptables -I INPUT 2 -p tcp --dport 3389 -j ACCEPT
 
-# Persist rules
+# Persist rules (with debconf-set-selections to make it unattended)
+echo 'iptables-persistent iptables-persistent/autosave_v4 boolean true' | debconf-set-selections
+echo 'iptables-persistent iptables-persistent/autosave_v6 boolean true' | debconf-set-selections
 apt install -y iptables-persistent
