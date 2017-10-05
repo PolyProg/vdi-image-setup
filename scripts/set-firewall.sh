@@ -25,5 +25,10 @@ iptables -A OUTPUT -p tcp --dport 80 -j DROP
 # Drop rest of HTTPS
 iptables -A OUTPUT -p tcp --dport 443 -j DROP
 
+# Allow vWorkspace Data Collector and RDP, respectively
+# These are not necessary now, but useful if this scripts bans more output in the future.
+iptables -I INPUT 2 -p tcp --dport 5203 -j ACCEPT
+iptables -I INPUT 2 -p tcp --dport 3389 -j ACCEPT
+
 # Persist rules
 apt install -y iptables-persistent
