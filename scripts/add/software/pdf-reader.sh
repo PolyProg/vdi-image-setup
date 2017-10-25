@@ -1,4 +1,4 @@
 #!/bin/sh
 # Installs a PDF reader
 
-apt install -y evince
+apt-get install -y evince

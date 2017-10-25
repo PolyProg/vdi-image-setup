@@ -1,4 +1,4 @@
 #!/bin/sh
 # Installs NetBeans
 
-apt install -y netbeans
+apt-get install -y netbeans

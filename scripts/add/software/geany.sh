@@ -1,4 +1,4 @@
 #!/bin/sh
 # Installs Geany
 
-apt install -y geany
+apt-get install -y geany

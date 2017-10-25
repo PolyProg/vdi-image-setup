@@ -3,7 +3,7 @@
 # TODO can we autodetect the latest release?
 
 ### Install Java first
-apt install -y openjdk-8-jdk
+apt-get install -y openjdk-8-jdk
 
 
 ### Install the Eclipse Platform Runtime, i.e. the shell without any plugins whatsoever

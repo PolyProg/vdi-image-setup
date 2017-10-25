@@ -20,6 +20,6 @@ localepurge     localepurge/verbose             boolean false
 EOF
 
 # Install it, run it, immediately uninstall it as we don't need to keep it
-apt install -y localepurge
+apt-get install -y localepurge
 localepurge
-apt purge -y localepurge
+apt-get purge -y localepurge

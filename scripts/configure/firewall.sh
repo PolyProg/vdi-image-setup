@@ -7,7 +7,7 @@ if [ $# -eq 0 ]; then
 fi
 
 # Uninstall the default ufw, we don't need it, let's not have 2 firewalls
-apt purge -y ufw
+apt-get purge -y ufw
 
 # Allow HTTP/S to all args
 for url in "$@"; do
@@ -35,4 +35,4 @@ iptables -I INPUT 2 -p tcp --dport 3389 -j ACCEPT
 # Persist rules (with debconf-set-selections to make it unattended)
 echo 'iptables-persistent iptables-persistent/autosave_v4 boolean true' | debconf-set-selections
 echo 'iptables-persistent iptables-persistent/autosave_v6 boolean true' | debconf-set-selections
-apt install -y iptables-persistent
+apt-get install -y iptables-persistent

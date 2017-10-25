@@ -46,10 +46,9 @@ fi
 
 ### Update dependencies, just in case
 
-apt update
-apt upgrade -y
-apt dist-upgrade -y
-apt autoremove -y --purge
+apt-get update
+apt-get upgrade -y
+apt-get autoremove -y --purge
 
 
 ### Work around Ubuntu bugs/annoyances
@@ -82,18 +81,18 @@ cp '/root/.bashrc' '/etc/skel/.bashrc'
 ### We do not even include lightdm or xterm, because we don't need them for RDP
 
 # Install libglib2.0 utilities first so that glib schemas can be installed
-apt install -y libglib2.0-bin
+apt-get install -y libglib2.0-bin
 
 # x11-xserver-utils and policykit-1 contain required thing for proper session login/logout
 # The menu package automatically puts apps in the Applications menu
 # Thunar is the XFCE file manager, xfce4-terminal is... a terminal
 # The themes are there to make it look decent
-apt install -y xserver-xorg xinit \
-               xfwm4 xfdesktop4 xfce4-panel xfce4-session \
-               x11-xserver-utils policykit-1 \
-               menu \
-               thunar xfce4-terminal \
-               xubuntu-icon-theme greybird-gtk-theme
+apt-get install -y xserver-xorg xinit \
+                   xfwm4 xfdesktop4 xfce4-panel xfce4-session \
+                   x11-xserver-utils policykit-1 \
+                   menu \
+                   thunar xfce4-terminal \
+                   xubuntu-icon-theme greybird-gtk-theme
 
 # Set the GTK theme, the default one makes Windows 95 look good
 cat > '/usr/share/glib-2.0/schemas/99default-theme.gschema.override' << EOF
@@ -106,12 +105,12 @@ glib-compile-schemas '/usr/share/glib-2.0/schemas/'
 
 ### Install git, since some of the software this script installs is git-cloned
 
-apt install -y git
+apt-get install -y git
 
 
 ### Install VMware tools
 
-apt install -y open-vm-tools-desktop
+apt-get install -y open-vm-tools-desktop
 
 
 ### Install Samba & co, for Active Directory auth
@@ -120,9 +119,9 @@ apt install -y open-vm-tools-desktop
 # - kstart contains k5start, an enhanced kinit, and krenew, to renew tickets automatically
 # - samba and a required module (that is by default only recommended)
 # - sssd and a few required libs (again, only recommended by default)
-apt install -y kstart \
-               samba samba-dsdb-modules \
-               sssd libnss-sss libpam-sss libsss-sudo libsasl2-modules-gssapi-mit
+apt-get install -y kstart \
+                   samba samba-dsdb-modules \
+                   sssd libnss-sss libpam-sss libsss-sudo libsasl2-modules-gssapi-mit
 
 # Disable them for now, they'll be enabled on startup once their configs' placeholders are filled
 systemctl disable smbd nmbd sssd
@@ -216,12 +215,12 @@ systemctl enable krenew.service
 
 # Dependencies, as per their READMEs
 # xrdp
-apt install -y gcc make \
-               autoconf automake libtool pkgconf \
-               libssl-dev libpam0g-dev \
-               libx11-dev libxfixes-dev libxrandr-dev
+apt-get install -y gcc make \
+                   autoconf automake libtool pkgconf \
+                   libssl-dev libpam0g-dev \
+                   libx11-dev libxfixes-dev libxrandr-dev
 # xorgxrdp
-apt install -y nasm xserver-xorg-dev
+apt-get install -y nasm xserver-xorg-dev
 
 
 # xrdp
@@ -326,7 +325,7 @@ EOF
 export LD_LIBRARY_PATH=/usr/lib
 
 # Required to build
-apt install -y build-essential cmake
+apt-get install -y build-essential cmake
 
 # Clone FreeRDP, then FreeRDS as a subfolder (yes, that's normal)
 cd '/opt'
@@ -340,14 +339,14 @@ rm -rf FreeRDS/widgets
 sed -i 's/add_subdirectory(widgets)//g' FreeRDS/CMakeLists.txt
 
 # Not in the official dependencies list, but required anyway
-apt install -y libcap-dev libssl-dev libltdl-dev
+apt-get install -y libcap-dev libssl-dev libltdl-dev
 
 # Build FreeRDS first, since it's a sub-thing
-apt install -y bison flex intltool \
-               libboost-dev libexpat1-dev libfontconfig1-dev libfreetype6-dev libfuse-dev libgl1-mesa-dev libjpeg-dev libjson-c-dev libpam0g-dev \
-               libpciaccess-dev libpixman-1-dev libpng12-dev libtool libsndfile1-dev libxml-libxml-perl \
-               mesa-common-dev \
-               x11proto-gl-dev xorg-dev xsltproc xutils-dev
+apt-get install -y bison flex intltool \
+                   libboost-dev libexpat1-dev libfontconfig1-dev libfreetype6-dev libfuse-dev libgl1-mesa-dev libjpeg-dev libjson-c-dev libpam0g-dev \
+                   libpciaccess-dev libpixman-1-dev libpng12-dev libtool libsndfile1-dev libxml-libxml-perl \
+                   mesa-common-dev \
+                   x11proto-gl-dev xorg-dev xsltproc xutils-dev
 cd '/opt/FreeRDP/server/FreeRDS/module/X11/service/xorg-build'
 cmake .
 make
@@ -356,8 +355,8 @@ cd ..
 ln -s 'xorg-build/external/Source/xorg-server' .
 
 # Install FreeRDP dependencies
-apt install -y libasound2-dev libavcodec-dev libavutil-dev libcups2-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libpulse-dev \
-               libssl-dev libx11-dev libxcursor-dev libxdamage-dev libxext-dev libxi-dev libxinerama-dev libxkbfile-dev libxrandr-dev libxrender-dev libxv-dev
+apt-get install -y libasound2-dev libavcodec-dev libavutil-dev libcups2-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libpulse-dev \
+                   libssl-dev libx11-dev libxcursor-dev libxdamage-dev libxext-dev libxi-dev libxinerama-dev libxkbfile-dev libxrandr-dev libxrender-dev libxv-dev
 
 # Generate all FreeRDP files (necessary now since we're fixing compilation errors later, some of which are in generated files)
 cd '/opt/FreeRDP'
@@ -420,7 +419,7 @@ cp '/opt/VDEFORLINUX/Provisioning/qdcsvc.conf' '/etc/qdcsvc.conf'
 ### The rest of this script must be executed at the next boot
 
 # We're going to parse XML, do it properly with xml_grep
-apt install -y xml-twig-tools
+apt-get install -y xml-twig-tools
 
 # Single quotes around EOF mean the shell won't perform substitution in the file
 cat > '/opt/install-continuation.sh' << 'EOF'
