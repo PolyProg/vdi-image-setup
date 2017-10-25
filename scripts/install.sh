@@ -84,11 +84,13 @@ cp '/root/.bashrc' '/etc/skel/.bashrc'
 # Install libglib2.0 utilities first so that glib schemas can be installed
 apt install -y libglib2.0-bin
 
+# x11-xserver-utils and policykit-1 contain required thing for proper session login/logout
 # The menu package automatically puts apps in the Applications menu
 # Thunar is the XFCE file manager, xfce4-terminal is... a terminal
 # The themes are there to make it look decent
 apt install -y xserver-xorg xinit \
                xfwm4 xfdesktop4 xfce4-panel xfce4-session \
+               x11-xserver-utils policykit-1 \
                menu \
                thunar xfce4-terminal \
                xubuntu-icon-theme greybird-gtk-theme
