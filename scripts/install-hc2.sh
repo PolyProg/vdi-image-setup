@@ -14,6 +14,12 @@ fi
 ./add/software/browser.sh
 ./add/software/pdf-reader.sh
 
+# Programming languages
+./add/languages/cpp.sh
+./add/languages/java.sh
+./add/languages/python2.sh
+./add/languages/python3.sh
+
 # Dev tools
 ./add/software/codeblocks.sh
 ./add/software/eclipse.sh
