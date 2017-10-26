@@ -1,4 +1,4 @@
 #!/bin/sh
 # C++ language support
 
-apt-get install -y gcc gdb
+apt-get install -y g++ gdb ddd
