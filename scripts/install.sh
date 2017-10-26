@@ -560,7 +560,21 @@ systemctl start smbd nmbd
 echo "$Password" | k5start -s "$UserName"
 
 # Join the domain
-net ads join -U "$UserName"%"$Password"
+# Sometimes it fails for no reason
+JOIN_RETRIES=10
+for join_retry in $(seq 1 $JOIN_RETRIES); do
+  net ads join -U "$UserName"%"$Password" && break
+
+  if [ join_retry -eq $JOIN_RETRIES ]; then
+    # All hope is lost :(
+    echo 'Could not join AD.' > /var/log/ad_error.log
+    sync
+    shutdown -h now
+  else
+    sleep 10
+  fi
+done
+
 net ads dns register -U "$UserName"%"$Password"
 
 # Start SSSD
