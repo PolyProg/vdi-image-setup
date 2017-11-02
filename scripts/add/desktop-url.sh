@@ -23,4 +23,5 @@ EOF
 chmod 777 "/etc/skel/Desktop/$1.desktop"
 
 # Install it for root as well
-cp "/etc/skel/Desktop/$1.desktop" '/root/Desktop/'
+mkdir -p '/root/Desktop'
+cp "/etc/skel/Desktop/$1.desktop" "/root/Desktop/$1.desktop"
