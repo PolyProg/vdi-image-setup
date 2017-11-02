@@ -227,6 +227,7 @@ apt-get install -y nasm xserver-xorg-dev
 cd '/opt'
 git clone --recursive https://github.com/neutrinolabs/xrdp
 cd 'xrdp'
+rm -rf '.git'
 
 # Patch xrdp, as for some weird reason vWorkspace doesn't work otherwise
 NUMLOGONNORMAL=$(grep -n "RDP_LOGON_NORMAL" common/xrdp_constants.h | cut -d ":" -f1)
@@ -242,6 +243,7 @@ make install
 cd '/opt'
 git clone https://github.com/neutrinolabs/xorgxrdp
 cd 'xorgxrdp'
+rm -rf '.git'
 ./bootstrap
 ./configure
 make
@@ -377,19 +379,19 @@ sed -i 's/-lpulsecore-8.0//' '/opt/FreeRDP/server/FreeRDS/channels/rdpsnd/pulse/
 # Build FreeRDP (but don't install it, we don't need that!)
 make
 
-
-### Install the dependencies for QDCSVC
-
 cd '/lib/x86_64-linux-gnu'
 
-# These two are just using the existing libssl1.0.0, but QDCSVC expects a different version
+# These two are just using the existing libs, but QDCSVC expects a different version
 ln -s 'libssl.so.1.0.0' 'libssl.so.10'
 ln -s 'libcrypto.so.1.0.0' 'libcrypto.so.10'
 
 # The reason we built FreeRDS in the first place
-ln -s '/opt/FreeRDP/server/FreeRDS/fdsapi/libfreerds-fdsapi.so' 'libfreerds-fdsapi.so'
-ln -s '/opt/FreeRDP/server/FreeRDS/freerds/rpc/libfreerds-rpc.so' 'libfreerds-rpc.so'
-ln -s '/opt/FreeRDP/winpr/libwinpr/libwinpr.so.1.1.0' 'libwinpr.so.1.1'
+cp '/opt/FreeRDP/server/FreeRDS/fdsapi/libfreerds-fdsapi.so' 'libfreerds-fdsapi.so'
+cp '/opt/FreeRDP/server/FreeRDS/freerds/rpc/libfreerds-rpc.so' 'libfreerds-rpc.so'
+cp '/opt/FreeRDP/winpr/libwinpr/libwinpr.so.1.1.0' 'libwinpr.so.1.1'
+
+# No need for FreeRDP now, and it takes up half a gigabyte...
+rm -rf '/opt/FreeRDP'
 
 
 ### Install QDCSVC
