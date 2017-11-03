@@ -4,17 +4,27 @@
 # Save the working directory to restore it later
 WorkDir=$(pwd)
 
-# Dependencies, as per their READMEs
-# xrdp
-apt-get install -y gcc make \
-                   autoconf automake libtool pkgconf \
-                   libssl-dev libpam0g-dev \
-                   libx11-dev libxfixes-dev libxrandr-dev
-# xorgxrdp
-apt-get install -y nasm xserver-xorg-dev
+# Packages that are only needed to build
+DepsPackages="git gcc make autoconf automake libtool pkgconf nasm"
 
-# git since we're git-cloning stuff
-apt-get install -y git
+# Figure out which packages we need to actually install, so we can remove them afterwards
+AptOutput=$(apt-get install $DepsPackages --dry-run -qq)
+PackagesToInstall=""
+for pkg in $DepsPackages; do
+  if echo "$AptOutput" | grep -q "Inst $pkg"; then
+    PackagesToInstall="$PackagesToInstall $pkg"
+  fi
+done
+
+# Install them
+apt-get install -y $PackagesToInstall
+
+# Other dependencies, as per the xrdp and xorgxrdp READMEs
+# Technically we don't need the -dev parts after building,
+# but let's not bother chasing down all real dependencies for a tiny amount of space
+apt-get install -y libssl-dev libpam0g-dev \
+                   libx11-dev libxfixes-dev libxrandr-dev \
+                   xserver-xorg-dev
 
 # xrdp
 cd '/opt'
@@ -59,9 +69,9 @@ systemctl enable xrdp-sesman.service
 
 # The xrdp.sh script is an old thing that shouldn't be used any more; replace it with a systemd shim
 # Otherwise, `xrdp.sh restart` hangs because it waits for xrdp to stop but we made it `Restart=always` above
-cat > '/etc/xrdp/xrdp.sh' << EOF
+cat > '/etc/xrdp/xrdp.sh' << 'EOF'
 # This script has been replaced by a systemd wrapper
-systemctl \$1 xrdp
+systemctl $1 xrdp
 EOF
 
 # Set the proper config
@@ -114,6 +124,7 @@ EOF
 # Cleanup
 rm -rf '/opt/xrdp'
 rm -rf '/opt/xorgxrdp'
+apt-get purge -y $PackagesToInstall
 
 # Restore the working directory
 cd "$WorkDir"
