@@ -57,4 +57,3 @@ fi
 ./install/qdcsvc-deps.sh
 ./install/qdcsvc.sh
 ./install/continuation.sh
-./install/cleanup.sh

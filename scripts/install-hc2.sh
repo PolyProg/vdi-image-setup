@@ -57,8 +57,7 @@ fi
 # Remove locales other than English
 ./remove/locales.sh 'en, en_US.UTF_8'
 
-# Remove unused packages
+# Final cleanup
 ./remove/unused-packages.sh
-
-# Remove apt cache
 ./remove/apt-cache.sh
+./remove/temp-files.sh
