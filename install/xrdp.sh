@@ -30,7 +30,6 @@ apt-get install -y libssl-dev libpam0g-dev \
 cd '/opt'
 git clone --recursive https://github.com/neutrinolabs/xrdp
 cd 'xrdp'
-rm -rf '.git'
 
 # Patch xrdp, as for some weird reason vWorkspace doesn't work otherwise
 NUMLOGONNORMAL=$(grep -n "RDP_LOGON_NORMAL" common/xrdp_constants.h | cut -d ":" -f1)
@@ -46,7 +45,6 @@ make install
 cd '/opt'
 git clone https://github.com/neutrinolabs/xorgxrdp
 cd 'xorgxrdp'
-rm -rf '.git'
 ./bootstrap
 ./configure
 make
