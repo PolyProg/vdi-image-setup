@@ -111,5 +111,9 @@ port=-1
 code=20
 EOF
 
+# Cleanup
+rm -rf '/opt/xrdp'
+rm -rf '/opt/xorgxrdp'
+
 # Restore the working directory
 cd "$WorkDir"
