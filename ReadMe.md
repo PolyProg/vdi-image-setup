@@ -1,6 +1,6 @@
-# Installation instructions
+Install a working, minimal Ubuntu system on a vWorkspace VDI infrastructure.
 
-These instructions are designed to install a working Xubuntu 16.04 system from scratch in the VDI infrastructure.
+# Installation instructions
 
 1. Download the Ubuntu 16.04 LTS "mini" ISO from https://help.ubuntu.com/community/Installation/MinimalCD
 2. In vSphere Web Client, go to "VMs and Templates" > Right-click the folder you want, New Virtual Machine > New Virtual Machine...
@@ -35,7 +35,7 @@ These instructions are designed to install a working Xubuntu 16.04 system from s
    - Encrypt home directory: No
    - Confirm time zone: Yes (assuming it's correct)
    - Partitioning method: Guided - use entire disk
-   - Select disk to partition: SCSI33 (0,0,0) (sda) - 34.4 GB VMware Virtual disk  (should be only choice)
+   - Partition the only disk choice
    - Write the changes to disks: yes
    - No automatic updates
    - Install GRUB to master boot record: Yes
@@ -43,17 +43,12 @@ These instructions are designed to install a working Xubuntu 16.04 system from s
    - In the remote console, VMRC > Manage > Virtual Machine Settings > click on CD/DVD drive 1
      - Uncheck both "Connected" and "Connect at power on"
    - In the setup, Continue
-(at this point, you might want to take a snapshot)
    - At the password prompt, login as live
    - `sudo passwd root`, give a new password
    - exit
    - Login as root
    - `userdel -rf live`
-   - `apt install xubuntu-core^` (see https://xubuntu.org/news/introducing-xubuntu-core/)
-   - reboot, make sure you can graphically login as root
-(now is also a good time for a snapshot)
    - `apt install -y openssh-server`
    - You may want to edit /etc/ssh/sshd_config to set PermitRootLogin to `yes` rather than `prohibit-password`, for convenience, then `systemctl restart sshd`
    - Put the VDEFORLINUX folder from the vWorkspace tools in /opt
-   - Put the install.sh script in /root (a.k.a. root's home)
-   - `./install.sh`
+   - Clone the repo, run the `install.sh` script (or a custom script, such as `install-hc2.sh`)
