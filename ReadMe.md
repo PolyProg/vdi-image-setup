@@ -1,4 +1,12 @@
-Install a working, minimal Ubuntu system on a vWorkspace VDI infrastructure.
+Minimal Ubuntu system on a vWorkspace VDI infrastructure.
+
+
+# Goals
+
+- Keep it simple. The goal is not to have the absolute most minimal system. We only remove low-hanging fruit.
+- Keep it layered. The base `install.sh` script has a minimal system with no tools aside from a terminal and a file manager,
+  additional scripts can be built on top of it using the other scripts; see `install-hc2.sh` for an example.
+
 
 # Installation instructions
 
@@ -52,3 +60,16 @@ Install a working, minimal Ubuntu system on a vWorkspace VDI infrastructure.
    - You may want to edit /etc/ssh/sshd_config to set PermitRootLogin to `yes` rather than `prohibit-password`, for convenience, then `systemctl restart sshd`
    - Put the VDEFORLINUX folder from the vWorkspace tools in /opt
    - Clone the repo, run the `install.sh` script (or a custom script, such as `install-hc2.sh`)
+
+# Notes
+
+The virtual machines must run three services to be usable:
+
+- `open-vm-tools`, the VMware tools; can be installed via `apt`, no configuration needed.
+- `qdcsvc`, the *Q*uest *D*ata *C*ollector *S*er*v*i*c*e; comes in the `VDEFORLINUX` folder of the vWorkspace tools,
+  must be manually installed, and depends on `libwinpr` (an emulation layer for Windows APIs on Linux, part of FreeRDP)
+  and `libfreerds-{rdsapi, rpc}`, two libraries from FreeRDS.
+  Unfortunately the `apt` packages containing `libwinpr` are from a newer version in which it is split into chunks,
+  thus the safest way to get `qdcsvc` to work is to compile FreeRDS and add the resulting libs to `/lìb`.
+- An RDP server, either FreeRDS or XRDP. FreeRDS is an old, experimental, unstable, unmaintained project.
+  XRDP is actively maintained.
