@@ -48,7 +48,7 @@ Install a working, minimal Ubuntu system on a vWorkspace VDI infrastructure.
    - exit
    - Login as root
    - `userdel -rf live`
-   - `apt install -y openssh-server`
+   - `apt install -y --no-install-recommends openssh-server git`
    - You may want to edit /etc/ssh/sshd_config to set PermitRootLogin to `yes` rather than `prohibit-password`, for convenience, then `systemctl restart sshd`
    - Put the VDEFORLINUX folder from the vWorkspace tools in /opt
    - Clone the repo, run the `install.sh` script (or a custom script, such as `install-hc2.sh`)
