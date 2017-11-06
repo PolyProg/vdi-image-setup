@@ -4,10 +4,6 @@
 # Note that "xubuntu-core" supposedly does this, but includes a ton of irrelevant packages
 # We do not even include lightdm or xterm, because we don't need them for RDP
 
-# Update packages, just in case
-apt-get update
-apt-get upgrade -y
-
 # Apt installs too many packages by default, we only want the required ones
 # Also, autoremove by default doesn't remove suggested/recommended packages
 cat > '/etc/apt/apt.conf.d/99no-suggests-recommends' << EOF
@@ -21,6 +17,11 @@ EOF
 cat > '/etc/apt/apt.conf.d/99retries' << EOF
 Acquire::Retries "5";
 EOF
+
+# Update packages
+apt-get update
+apt-get upgrade -y
+apt-get autoremove -y
 
 # For some reason the default fstab contains an entry for floppy0, which we don't want
 sed -i '/floppy0/d' '/etc/fstab'
