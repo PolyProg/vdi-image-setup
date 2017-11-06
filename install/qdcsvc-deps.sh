@@ -11,7 +11,7 @@ DepsPackages="build-essential cmake bison flex intltool \
               libboost-dev libexpat1-dev libfontconfig1-dev libfreetype6-dev libfuse-dev libgl1-mesa-dev libjpeg-dev libjson-c-dev libpam0g-dev \
               libpciaccess-dev libpixman-1-dev libpng12-dev libtool libsndfile1-dev libxml-libxml-perl \
               mesa-common-dev \
-              x11proto-xcmisc-dev x11proto-bigreqs-dev x11proto-composite-dev x11proto-record-dev x11proto-gl-dev xorg-dev xsltproc xutils-dev \
+              x11proto-xcmisc-dev x11proto-bigreqs-dev x11proto-composite-dev x11proto-record-dev x11proto-gl-dev xserver-xorg xorg-dev xsltproc xutils-dev \
               libasound2-dev libavcodec-dev libavutil-dev libcups2-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev libpulse-dev \
               libx11-dev libxcursor-dev libxdamage-dev libxext-dev libxi-dev libxinerama-dev libxkbfile-dev libxrandr-dev libxrender-dev libxv-dev \
               libcap-dev libltdl-dev \
