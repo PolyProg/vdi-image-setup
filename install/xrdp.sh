@@ -122,7 +122,7 @@ EOF
 # Cleanup
 rm -rf '/opt/xrdp'
 rm -rf '/opt/xorgxrdp'
-apt-get purge -y $PackagesToInstall
+apt-get purge -y --autoremove $PackagesToInstall
 
 # Restore the working directory
 cd "$WorkDir"
