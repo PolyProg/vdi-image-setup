@@ -9,9 +9,12 @@ apt-get update
 apt-get upgrade -y
 
 # Apt installs too many packages by default, we only want the required ones
+# Also, autoremove by default doesn't remove suggested/recommended packages
 cat > '/etc/apt/apt.conf.d/99no-suggests-recommends' << EOF
-APT::Install-Suggests "0";
-APT::Install-Recommends "0";
+APT::Install-Suggests "false";
+APT::Install-Recommends "false";
+APT::AutoRemove::RecommendsImportant "false";
+APT::AutoRemove::SuggestsImportant "false";
 EOF
 
 # Apt will fail on the first error by default, which is annoying
