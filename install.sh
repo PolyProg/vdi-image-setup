@@ -7,20 +7,22 @@
 ### Check for prerequisites
 ### First the platform, then the stuff that can be changed
 
-if [ ! -e '/usr/bin/lsb_release' ]; then
-  echo 'Please run this script under Ubuntu' >&2
+if [ ! -f '/etc/lsb-release' ]; then
+  echo 'Please run this script on Ubuntu' >&2
   exit 1
 fi
 
-case "$(lsb_release -d)" in
-  *'Ubuntu 16.04'*)
-    :
-    ;;
-  *)
-    echo 'Please run this script under Ubuntu 16.04' >&2
-    exit 1
-    ;;
-esac
+. /etc/lsb-release
+
+if [ "$DISTRIB_ID" != 'Ubuntu' ]; then
+  echo 'Please run this script on Ubuntu' >&2
+  exit 1
+fi
+
+if [ "$DISTRIB_RELEASE" != '16.04' ]; then
+  echo 'Please run this script on Ubuntu 16.04' >&2
+  exit 1
+fi
 
 if [ "$(uname -i)" != 'x86_64' ]; then
   echo 'Please run this script on an x64 OS' >&2

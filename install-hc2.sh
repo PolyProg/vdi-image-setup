@@ -6,7 +6,11 @@ if [ ! -f "install.sh" ]; then
   exit 1
 fi
 
-# First things first
+# Remove unneeded components first
+./remove/dangerous/python.sh
+./remove/dangerous/timers.sh
+
+# Install the OS
 ./install.sh
 
 # Basic utilities
