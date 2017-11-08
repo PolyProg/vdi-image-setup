@@ -6,11 +6,11 @@
 # - samba and a required module (that is by default only recommended)
 # - sssd and a few required libs (again, only recommended by default)
 apt-get install -y kstart \
-                   samba samba-dsdb-modules \
+                   samba-common-bin samba-dsdb-modules \
                    sssd libnss-sss libpam-sss libsss-sudo libsasl2-modules-gssapi-mit
 
-# Disable them for now, they'll be enabled on startup once their configs' placeholders are filled
-systemctl disable smbd nmbd sssd
+# Disable sssd for now, it'll be enabled on startup once the configs' placeholders are filled
+systemctl disable sssd
 
 # Add pam_mkhomedir to create home dirs properly
 # umask=0077 means only users can access their homedir, nobody else

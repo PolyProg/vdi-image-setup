@@ -135,10 +135,6 @@ timedatectl set-ntp true
 echo '# Workaround for a Samba issue' >> '/etc/hosts'
 echo "$IP $ComputerName.$FQDN $ComputerName" >> '/etc/hosts'
 
-# Start Samba. For some reason enable --now doesn't work, perhaps because they are really sysvinit scripts
-systemctl enable smbd nmbd
-systemctl start smbd nmbd
-
 # Get a Kerberos ticket (-s = read password from stdin)
 echo "$Password" | k5start -s "$UserName"
 
