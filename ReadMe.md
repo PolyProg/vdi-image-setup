@@ -5,7 +5,7 @@ Minimal Ubuntu system on a vWorkspace VDI infrastructure.
 
 - Keep it simple. The goal is not to have the absolute most minimal system. We only remove low-hanging fruit.
 - Keep it layered. The base `install.sh` script has a minimal system with no tools aside from a terminal and a file manager,
-  additional scripts can be built on top of it using the other scripts; see `install-hc2.sh` for an example.
+  additional scripts can be built on top of it using the other scripts; see `install-polyprog.sh` for an example.
 
 
 # Installation instructions
@@ -59,7 +59,7 @@ Minimal Ubuntu system on a vWorkspace VDI infrastructure.
    - `apt install -y --no-install-recommends openssh-server git`
    - You may want to edit /etc/ssh/sshd_config to set PermitRootLogin to `yes` rather than `prohibit-password`, for convenience, then `systemctl restart sshd`
    - Put the VDEFORLINUX folder from the vWorkspace tools in /opt
-   - Clone the repo, run the `install.sh` script (or a custom script, such as `install-hc2.sh`)
+   - Clone the repo, run the `install.sh` script (or a custom script, such as `install-polyprog.sh`)
 
 # Notes
 

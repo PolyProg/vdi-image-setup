@@ -1,8 +1,13 @@
 #!/bin/sh
-# Example of how to write a custom script that installs and configures software
+# PolyProg install script
 
-if [ ! -f "install.sh" ]; then
-  echo "Please execute this script in the same directory as install.sh" >&2
+if [ ! -x 'install.sh' ]; then
+  echo 'Please execute this script in the same directory as install.sh' >&2
+  exit 1
+fi
+
+if [ $# -eq 0 -o \( "$1" != 'santa' -a "$1" != 'hc2' \) ]; then
+  echo "Expected single argument: one of 'santa', 'hc2'" >&2
   exit 1
 fi
 
@@ -22,7 +27,13 @@ fi
 ./add/languages/cpp.sh
 ./add/languages/java.sh
 ./add/languages/python2.sh
-./add/languages/python3.sh
+
+if [ "$1" = 'hc2' ]; then
+  ./add/languages/python3.sh
+else
+  ./add/languages/obsolete/python3.2.sh
+  ./add/languages/scala.sh
+fi
 
 # Dev tools
 ./add/software/codeblocks.sh
@@ -39,7 +50,14 @@ fi
 ./configure/xfce-basic-panels.sh
 
 # Contest and doc on the desktop
-./add/desktop-url.sh 'Contest' 'http://contest.hc2.ch'
+if [ "$1" = 'hc2' ]; then
+  CONTEST_HOST='contest.hc2.ch replica.hc2.ch'
+  ./add/desktop-url.sh 'Contest' 'http://contest.hc2.ch'
+else
+  CONTEST_HOST='contest.yandex.com'
+  ./add/desktop-url.sh 'Contest' 'https://official.contest.yandex.com/santa/'
+fi
+
 ./add/desktop-url.sh 'Documentation' 'http://doc.hc2.ch'
 
 # Swiss keyboard
@@ -50,12 +68,14 @@ fi
 # - Oracle javadocs (required for Eclipse to use it)
 # - VDI connection brokers
 # - VDI web access
-# - HC2 saltmaster, documentation, contest, and replica
-./configure/firewall.sh ch.archive.ubuntu.com security.ubuntu.com repo.saltstack.com \
+# - HC2 saltmaster, documentation
+# - Contest server
+./configure/firewall.sh ch.archive.ubuntu.com security.ubuntu.com ppa.launchpad.net repo.saltstack.com \
                         docs.oracle.com \
                         itvdiconnect01.epfl.ch itvdiconnect02.epfl.ch itvdiconnect03.epfl.ch itvdiconnect04.epfl.ch \
                         itvdiweb01.epfl.ch itvdiweb02.epfl.ch vdi.epfl.ch \
-                        master.hc2.ch doc.hc2.ch contest.hc2.ch repl.hc2.ch
+                        master.hc2.ch doc.hc2.ch \
+                        $CONTEST_HOST
 
 # Remove documentation, we don't need it (only man pages)
 ./remove/doc.sh
