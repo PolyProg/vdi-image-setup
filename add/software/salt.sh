@@ -6,13 +6,19 @@ if [ $# -eq 0 ]; then
   exit 1
 fi
 
+# Salt will install software-properties-common on its own, we need to clean up afterwards
+NeedSpc=0
+if [ ! -x "$(command -v add-apt-repository)" ]; then
+  NeedSpc=1
+fi
+
 # Get Salt via its bootstrap script
 wget -O 'salt.sh' 'https://bootstrap.saltstack.com'
-sh 'salt.sh' -P
-rm 'salt.sh'
 
-# The bootstrap script starts the minion immediately, but we don't want that
-systemctl disable --now salt-minion
+# Run the script
+# -X == don't start the minion immediately
+sh 'salt.sh' -X
+rm 'salt.sh'
 
 # Configure the minion
 rm -r '/etc/salt/'*
@@ -25,6 +31,11 @@ tcp_keepalive: True
 tcp_keepalive_idle: 60
 EOF
 
-# TODO have a proper hook
 # Start the minion only after the machine is configured, so that the hostname is correct
+systemctl daemon-reload
 echo 'systemctl start --now salt-minion' >> '/opt/install-continuation.sh'
+
+
+if [ $NeedSpc -eq 1 ]; then
+  apt-get purge --autoremove -y software-properties-common
+fi
