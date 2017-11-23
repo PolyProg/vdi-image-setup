@@ -1,8 +1,8 @@
 #!/bin/sh
 # Installs Salt. Single argument to this script is the master URL.
 
-if [ $# -eq 0 ]; then
-  echo "This script takes the Salt master URL as argument" >&2
+if [ $# -ne 1 ]; then
+  echo "This script expects the Salt master URL as single argument." >&2
   exit 1
 fi
 
