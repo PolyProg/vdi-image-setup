@@ -54,7 +54,7 @@ if [ "$1" = 'hc2' ]; then
   CONTEST_HOST='contest.hc2.ch replica.hc2.ch'
   ./add/desktop-url.sh 'Contest' 'http://contest.hc2.ch'
 else
-  CONTEST_HOST='official.contest.yandex.com contest.yandex.com passport.yandex.com social.yandex.com yastatic.net yandex.st'
+  CONTEST_HOST='official.contest.yandex.com contest.yandex.com passport.yandex.com social.yandex.com yastatic.net yandex.st mc.yandex.ru clck.yandex.ru'
   ./add/desktop-url.sh 'Contest' 'https://official.contest.yandex.com/santa/'
 fi
 
