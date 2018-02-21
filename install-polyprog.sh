@@ -24,7 +24,7 @@ fi
 ./add/software/pdf-reader.sh
 
 # Programming languages
-./add/languages/cpp.sh
+./add/languages/c_and_cpp.sh
 ./add/languages/java.sh
 ./add/languages/python2.sh
 
