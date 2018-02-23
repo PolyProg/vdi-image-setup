@@ -232,5 +232,5 @@ cat > '/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml' << 'E
 EOF
 
 # Also set the panels for root
-cp -r /etc/skel/.config/. /root/.config/
 mkdir -p /root/.config/
+cp -r /etc/skel/.config/. /root/.config/
