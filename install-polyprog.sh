@@ -51,7 +51,7 @@ fi
 
 # Contest and doc on the desktop
 if [ "$1" = 'hc2' ]; then
-  CONTEST_HOST='contest.hc2.ch replica.hc2.ch'
+  CONTEST_HOST='contest.hc2.ch'
   ./add/desktop-url.sh 'Contest' 'http://contest.hc2.ch'
 else
   CONTEST_HOST='official.contest.yandex.com contest.yandex.com passport.yandex.com social.yandex.com yastatic.net yandex.st mc.yandex.ru clck.yandex.ru'
@@ -68,13 +68,15 @@ fi
 # - Oracle javadocs (required for Eclipse to use it)
 # - VDI connection brokers
 # - VDI web access
-# - HC2 saltmaster, documentation
+# - HC2 saltmaster
+# - Documentation
 # - Contest server
 ./configure/firewall.sh ch.archive.ubuntu.com security.ubuntu.com ppa.launchpad.net repo.saltstack.com \
                         docs.oracle.com \
                         itvdiconnect01.epfl.ch itvdiconnect02.epfl.ch itvdiconnect03.epfl.ch itvdiconnect04.epfl.ch \
                         itvdiweb01.epfl.ch itvdiweb02.epfl.ch vdi.epfl.ch \
-                        master.hc2.ch doc.hc2.ch \
+                        master.hc2.ch \
+                        doc.hc2.ch \
                         $CONTEST_HOST
 
 # Remove documentation, we don't need it (only man pages)
