@@ -1,6 +1,13 @@
 #!/bin/sh
 # Installs Eclipse 4.8 "Photon"
 
+# Install desktop-file-utils for desktop-file-install
+NeedDfu=0
+if [ ! -x "$(command -v desktop-file-install)" ]; then
+  apt-get install -y desktop-file-utils
+  NeedDfu=1
+fi
+
 # Install Java first
 apt-get install -y openjdk-8-jre
 
@@ -58,4 +65,9 @@ fi
 # Scala IDE
 if [ -x "$(command -v scalac)" ]; then
   install http://downloads.typesafe.com/scalaide/sdk/lithium/e47/scala212/stable/site org.scala-ide.sdt.feature.feature.group
+fi
+
+
+if [ $NeedDfu -eq 1 ]; then
+  apt-get purge --autoremove -y desktop-file-utils
 fi
