@@ -1,8 +1,8 @@
 #!/bin/sh
-# Install basic packages to run an xfce4 system from a remote desktop,
+# Install basic packages to run an xfce4 system,
 # providing users with a Xubuntu-like experience
 # Note that "xubuntu-core" supposedly does this, but includes a ton of irrelevant packages
-# We do not even include lightdm or xterm, because we don't need them for RDP
+# We do not even include lightdm or xterm, because we don't need them
 
 # Apt installs too many packages by default, we only want the required ones
 # Also, autoremove by default doesn't remove suggested/recommended packages
@@ -38,7 +38,7 @@ cp '/root/.bashrc' '/etc/skel/.bashrc'
 # open-vm-tools-desktop are required to run in a VMware virtual machine
 # xfwm4 is the window manager, xfdesktop4 the desktop, xfce4-panel the panels, and xfce4-session the session
 # libglib2.0-bin allows changing the themes and icons
-# x11-xserver-utils and policykit-1 contain required thing for proper session login/logout
+# x11-xserver-utils and policykit-1 contain required things for proper session login/logout
 # The menu package automatically puts apps in the Applications menu
 # Thunar is the XFCE file manager, xfce4-terminal is a terminal
 # The themes are there to make it look decent

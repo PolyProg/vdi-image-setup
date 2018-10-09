@@ -2,7 +2,6 @@
 # Installs the necessary tools to run Xubuntu Core 16.04 on Dell vWorkspace
 # Must be run on an Ubuntu Mini 16.04 x64 image
 # Written by Solal Pirelli
-# Original vWorkspace scripts written by Stephen Yorke (Dell)
 
 ### Check for prerequisites
 ### First the platform, then the stuff that can be changed
@@ -40,11 +39,6 @@ if [ "$(id -u)" != '0' ]; then
   exit 1
 fi
 
-if [ ! -d '/opt/VDEFORLINUX' ]; then
-  echo 'Please put the vWorkspace VDEFORLINUX folder in /opt/VDEFORLINUX' >&2
-  exit 1
-fi
-
 if [ ! -d 'install' ]; then
   echo 'Please run this script from its containing folder.' >&2
   exit 1
@@ -55,7 +49,4 @@ fi
 
 ./install/xubuntu-minimal.sh
 ./install/ad-auth.sh
-./install/xrdp.sh
-./install/qdcsvc-deps.sh
-./install/qdcsvc.sh
 ./install/continuation.sh

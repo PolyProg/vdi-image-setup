@@ -24,7 +24,10 @@ services = nss, pam
 domains = ##FQDNDOM##
 
 [domain/##FQDNDOM##]
-# LDAP for identity, but no access control (vWorkspace performs it)
+# VMWare explicitly says usernames must be case-insensitive
+case_sensitive = false
+
+# LDAP for identity, but no access control
 id_provider = ldap
 access_provider = permit
 
