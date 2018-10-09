@@ -20,7 +20,7 @@ Minimal Ubuntu system on a vWorkspace VDI infrastructure.
  - Guest OS Family: Linux, Guest OS Version: Ubuntu Linux (64-bit)
  - CPU : 2, Memory: 4096 MB, New Hard disk: 32 GB, you may need to change the network here
  - Finish
-3. Still in vSphere, with your VM selected, click on "Launch remote console"
+3. Still in vSphere, with your VM selected, in the "Summary" tab click on "Launch remote console"
 4. In the remote console:
  - VMRC > Manage > Virtual Machine Settings > click on CD/DVD drive 1
    - Check "Connect at power on"
