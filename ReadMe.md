@@ -15,7 +15,7 @@ Minimal Ubuntu system on a vWorkspace VDI infrastructure.
  - Create a new virtual machine
  - Name: The name you want
  - Location: The location you want
- - Storage: The storeage you want
+ - Storage: The storage you want
  - Compatible with: leave unchanged - ESXi 6.0 and later
  - Guest OS Family: Linux, Guest OS Version: Ubuntu Linux (64-bit)
  - CPU : 2, Memory: 4096 MB, New Hard disk: 32 GB, you may need to change the network here
