@@ -15,21 +15,23 @@ fi
 read -p 'User: ' User
 read -p 'Password: ' Password
 
-# Remove unneeded components
-./remove/dangerous/python.sh
-./remove/dangerous/timers.sh
-
 # HACK: Required given the EPFL setup - otherwise Kerberos servers can't be found by realmd
-ADServers="$(dig +short _ldap._tcp.$(lower $FQDN) SRV | cut -d ' ' -f4 | sed -e 's/\.*$//')"
+ADServers="$(dig +short _ldap._tcp.intranet.epfl.ch SRV | cut -d ' ' -f4 | sed -e 's/\.*$//')"
 for Server in $ADServers; do
-  ServerIp="$(nslookup $(lower $Server) | sed -n '5p' | cut -d ' ' -f2)"
-  echo "$ServerIp $(lower $Server)" >> '/etc/hosts'
+  ServerIp="$(nslookup intranet.epfl.ch | sed -n '5p' | cut -d ' ' -f2)"
+  echo "$ServerIp intranet.epfl.ch" >> '/etc/hosts'
 done
 
 # Core install
 ./install.sh "$User" "$Password" \
              'INTRANET.EPFL.CH' \
              'OU=PolyProg,OU=StudentVDI,OU=VDI,OU=DIT-Services Communs,DC=intranet,DC=epfl,DC=ch'
+
+# Remove unneeded components
+# NOTE: It is important to do this after the core install and not before,
+# because removing python removes lsb-release and VMware Horizon needs it
+./remove/dangerous/python.sh
+./remove/dangerous/timers.sh
 
 # TODO begin removeme
 ./remove/doc.sh
