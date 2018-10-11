@@ -37,7 +37,7 @@ rm -f horizon-client.tar.gz
 rm -rf horizon-client
 
 # Patch the config (EOF between quotes to not have to escape backslashes)
-cat > /etc/vmware/viewagent-custom.conf << 'EOF'
+cat >> /etc/vmware/viewagent-custom.conf << 'EOF'
 # We're not using PBISO
 echo 'OfflineJoinDomain=none'
 # Use the AD join script
