@@ -46,6 +46,9 @@ RunOnceScript=/opt/ad-join.sh
 SSOUserFormat=[domain]\\[username]
 EOF
 
+# Patch the SSSD config to make it case-insensitive, as requested by VMware Horizon
+sed -i '/\[domain/a case_sensitive = false' /etc/sssd/sssd.conf
+
 # TODO consider purging some of the deps like Zenity, it even includes emacs common files...
 
 # Restore the working directory
