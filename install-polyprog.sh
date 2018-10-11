@@ -27,10 +27,7 @@ done
              'INTRANET.EPFL.CH' \
              'OU=PolyProg,OU=StudentVDI,OU=VDI,OU=DIT-Services Communs,DC=intranet,DC=epfl,DC=ch'
 
-# Remove unneeded components
-# NOTE: It is important to do this after the core install and not before,
-# because removing python removes lsb-release and VMware Horizon needs it
-./remove/dangerous/python.sh
+# Remove timers, our machines are short-lived and we don't want anything messing them up
 ./remove/dangerous/timers.sh
 
 # TODO begin removeme
