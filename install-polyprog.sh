@@ -18,8 +18,8 @@ read -p 'Password: ' Password
 # HACK: Required given the EPFL setup - otherwise Kerberos servers can't be found by realmd
 ADServers="$(dig +short _ldap._tcp.intranet.epfl.ch SRV | cut -d ' ' -f4 | sed -e 's/\.*$//')"
 for Server in $ADServers; do
-  ServerIp="$(nslookup intranet.epfl.ch | sed -n '5p' | cut -d ' ' -f2)"
-  echo "$ServerIp intranet.epfl.ch" >> '/etc/hosts'
+  ServerIp="$(nslookup $Server | sed -n '5p' | cut -d ' ' -f2)"
+  echo "$ServerIp $Server" >> '/etc/hosts'
 done
 
 # Core install
