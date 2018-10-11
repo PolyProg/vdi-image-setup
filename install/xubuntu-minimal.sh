@@ -46,6 +46,9 @@ apt-get install -y xserver-xorg xinit \
                    thunar xfce4-terminal \
                    xubuntu-icon-theme greybird-gtk-theme
 
+# Disable guest option in LightDM, just in case (from https://askubuntu.com/a/169105/642930)
+printf '[Seat:*]\nallow-guest=false\n' > /etc/lightdm/lightdm.conf.d/99no-guest.conf
+
 # Set the GTK theme, the default one makes Windows 95 look good
 cat > '/usr/share/glib-2.0/schemas/99default-theme.gschema.override' << EOF
 [org.gnome.desktop.interface]

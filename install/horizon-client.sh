@@ -18,7 +18,7 @@ tar xf horizon-client.tar.gz -C horizon-client --strip-components=1
 
 # Install the client
 # -A yes is for accepting the EULA
-# Others are options; disable everything except the managed client (recommended, -M)
+# Others are options; disable everything except the managed client (recommended, -M) and Single-Sign ON (a.k.a. SSO, -S)
 # Do not explicitly disable FIPS (-f), it's not even supported on Ubuntu
 cd horizon-client
 ./install_viewagent.sh -A yes \
@@ -27,8 +27,8 @@ cd horizon-client
                        -r no \
                        -C no \
                        -F no \
-                       -S no \
                        -U no \
+                       -S yes \
                        -M yes
 
 # Remove the tar and the folder, not needed any more
