@@ -2,8 +2,8 @@
 # Configures the machine to join Active Directory; leaves behind a single-use /opt/ad-join.sh to redo the join.
 # Parameters:
 # $1: The user
-# $2: The domain
-# $3: The password
+# $2: The password
+# $3: The domain
 # $4: The OU of the computers in AD
 
 
@@ -23,7 +23,7 @@ cat > /opt/ad-join.sh << EOF
 #!/bin/sh
 
 # --install=/ so that realm doesn't try to install stuff (which would fail since we did not install packagekit)
-echo "$3" | realm join --install=/ --computer-ou="$4" --user="$1"@"$2" "$2"
+echo "$2" | realm join --install=/ --computer-ou="$4" --user="$1"@"$3" "$3"
 EOF
 
 # Make the script executable and root-only

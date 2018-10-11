@@ -11,12 +11,34 @@ if [ $# -eq 0 -o \( "$1" != 'santa' -a "$1" != 'hc2' \) ]; then
   exit 1
 fi
 
-# Remove unneeded components first
+# Ask for credentials first
+read -p 'User: ' User
+read -p 'Password: ' Password
+
+# Remove unneeded components
 ./remove/dangerous/python.sh
 ./remove/dangerous/timers.sh
 
-# Install the OS
-./install.sh
+# HACK: Required given the EPFL setup - otherwise Kerberos servers can't be found by realmd
+ADServers="$(dig +short _ldap._tcp.$(lower $FQDN) SRV | cut -d ' ' -f4 | sed -e 's/\.*$//')"
+for Server in $ADServers; do
+  ServerIp="$(nslookup $(lower $Server) | sed -n '5p' | cut -d ' ' -f2)"
+  echo "$ServerIp $(lower $Server)" >> '/etc/hosts'
+done
+
+# Core install
+./install.sh "$User" "$Password" \
+             'INTRANET.EPFL.CH' \
+             'OU=PolyProg,OU=StudentVDI,OU=VDI,OU=DIT-Services Communs,DC=intranet,DC=epfl,DC=ch'
+
+# TODO begin removeme
+./remove/doc.sh
+./remove/locales.sh 'en, en_US.UTF_8'
+./remove/unused-packages.sh
+./remove/apt-cache.sh
+./remove/temp-files.sh
+exit 0
+# end removeme
 
 # Basic utilities
 ./add/software/archiver.sh

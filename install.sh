@@ -1,5 +1,5 @@
 #!/bin/sh
-# Installs the necessary tools to run Xubuntu Core 16.04 on Dell vWorkspace
+# Installs the necessary tools to run Xubuntu Core 16.04 on VMware Horizon
 # Must be run on an Ubuntu Mini 16.04 x64 image
 # Written by Solal Pirelli
 
@@ -44,9 +44,19 @@ if [ ! -d 'install' ]; then
   exit 1
 fi
 
+if [ ! -f '/opt/horizon-client.tar.gz' ]; then
+  echo 'Please put the VMware Horizon Client in /opt/horizon-client.tar.gz' >&2
+  exit 1
+fi
+
+if [ "$#" -ne 4 ]; then
+  echo "Usage: $0 <AD user> <AD user password> <AD domain> <AD computer OU>" >&2
+  exit 1
+fi
+
 
 ### Perform the installation, in modular steps
 
 ./install/xubuntu-minimal.sh
-./install/ad-auth.sh
-./install/continuation.sh
+./install/ad-auth.sh "$1" "$2" "$3" "$4"
+./install/horizon-client.sh
