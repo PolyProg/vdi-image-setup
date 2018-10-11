@@ -1,5 +1,6 @@
 #!/bin/sh
 # Installs VMware's Horizon Client, assuming a compressed version of it exists at /opt/horizon-client.tar.gz
+# and that a script /opt/ad-join.sh exists to join the AD
 
 # Save the working directory to restore it later
 WorkDir=$(pwd)
@@ -29,3 +30,23 @@ cd horizon-client
                        -S no \
                        -U no \
                        -M yes
+
+# Remove the tar and the folder, not needed any more
+cd ..
+rm -f horizon-client.tar.gz
+rm -rf horizon-client
+
+# Patch the config (EOF between quotes to not have to escape backslashes)
+cat > /etc/vmware/viewagent-custom.conf << 'EOF'
+# We're not using PBISO
+echo 'OfflineJoinDomain=none'
+# Use the AD join script
+echo 'RunOnceScript=/opt/ad-join.sh'
+# Use usernames with domains
+echo 'SSOUserFormat=[domain]\\[username]'
+EOF
+
+# TODO consider purging some of the deps like Zenity, it even includes emacs common files...
+
+# Restore the working directory
+cd "$WorkDir"
