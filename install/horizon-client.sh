@@ -39,11 +39,11 @@ rm -rf horizon-client
 # Patch the config (EOF between quotes to not have to escape backslashes)
 cat >> /etc/vmware/viewagent-custom.conf << 'EOF'
 # We're not using PBISO
-echo 'OfflineJoinDomain=none'
+OfflineJoinDomain=none
 # Use the AD join script
-echo 'RunOnceScript=/opt/ad-join.sh'
+RunOnceScript=/opt/ad-join.sh
 # Use usernames with domains
-echo 'SSOUserFormat=[domain]\\[username]'
+SSOUserFormat=[domain]\\[username]
 EOF
 
 # TODO consider purging some of the deps like Zenity, it even includes emacs common files...
