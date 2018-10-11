@@ -2,7 +2,6 @@
 # Install basic packages to run an xfce4 system,
 # providing users with a Xubuntu-like experience
 # Note that "xubuntu-core" supposedly does this, but includes a ton of irrelevant packages
-# We do not even include lightdm or xterm, because we don't need them
 
 # Apt installs too many packages by default, we only want the required ones
 # Also, autoremove by default doesn't remove suggested/recommended packages
@@ -23,9 +22,6 @@ apt-get update
 apt-get upgrade -y
 apt-get autoremove -y
 
-# For some reason the default fstab contains an entry for floppy0, which we don't want
-sed -i '/floppy0/d' '/etc/fstab'
-
 # i2c_piix4 is a module that deals with the PIIX4 chip's System Management Bus (SMBus), but VMWare doesn't support it
 # Not a huge deal, it just prints an error line on boot, but that's not very nice, we want no errors
 echo '# Disabled since VMWare does not support it' >> '/etc/modprobe.d/blacklist.conf'
@@ -35,17 +31,17 @@ echo 'blacklist i2c_piix4' >> '/etc/modprobe.d/blacklist.conf'
 cp '/root/.bashrc' '/etc/skel/.bashrc'
 
 # xserver-xorg and xinit are the minimum required to have an X server
-# open-vm-tools-desktop are required to run in a VMware virtual machine
 # xfwm4 is the window manager, xfdesktop4 the desktop, xfce4-panel the panels, and xfce4-session the session
 # libglib2.0-bin allows changing the themes and icons
 # x11-xserver-utils and policykit-1 contain required things for proper session login/logout
+# LightDM is the display manager, and requires a greeter to go along with it
 # The menu package automatically puts apps in the Applications menu
 # Thunar is the XFCE file manager, xfce4-terminal is a terminal
 # The themes are there to make it look decent
 apt-get install -y xserver-xorg xinit \
-                   open-vm-tools-desktop \
                    xfwm4 xfdesktop4 xfce4-panel xfce4-session \
                    libglib2.0-bin x11-xserver-utils policykit-1 \
+                   lightdm lightdm-gtk-greeter \
                    menu \
                    thunar xfce4-terminal \
                    xubuntu-icon-theme greybird-gtk-theme

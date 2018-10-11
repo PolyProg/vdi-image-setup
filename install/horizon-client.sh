@@ -1,0 +1,31 @@
+#!/bin/sh
+# Installs VMware's Horizon Client, assuming a compressed version of it exists at /opt/horizon-client.tar.gz
+
+# Save the working directory to restore it later
+WorkDir=$(pwd)
+
+# Install the dependencies:
+# - First line contains those that are officially declared
+# - Second line contains those that are not...
+apt-get install -y open-vm-tools-desktop python-dbus python-gobject \
+                   zenity pulseaudio-utils xinput
+
+# Untar the client, in a folder we know
+cd /opt
+mkdir horizon-client
+tar xf horizon-client.tar.gz -C horizon-client --strip-components=1
+
+# Install the client
+# -A yes is for accepting the EULA
+# Others are options; disable everything except the managed client (recommended, -M)
+# Do not explicitly disable FIPS (-f), it's not even supported on Ubuntu
+cd horizon-client
+./install_viewagent.sh -A yes \
+                       -a no \
+                       -m no \
+                       -r no \
+                       -C no \
+                       -F no \
+                       -S no \
+                       -U no \
+                       -M yes
