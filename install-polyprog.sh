@@ -50,6 +50,7 @@ else
 fi
 
 # Dev tools
+./add/software/atom.sh
 ./add/software/codeblocks.sh
 ./add/software/eclipse.sh
 ./add/software/emacs.sh
@@ -76,7 +77,7 @@ fi
 # - Oracle javadocs (required for Eclipse to use it)
 # - Documentation
 # - Contest server
-./configure/firewall.sh ch.archive.ubuntu.com security.ubuntu.com ppa.launchpad.net \
+./configure/firewall.sh ch.archive.ubuntu.com security.ubuntu.com ppa.launchpad.net packagecloud.io \
                         docs.oracle.com \
                         doc.hc2.ch \
                         $ContestHost
