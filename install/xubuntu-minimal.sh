@@ -5,12 +5,13 @@
 
 # Apt installs too many packages by default, we only want the required ones
 # Also, autoremove by default doesn't remove suggested/recommended packages
-cat > '/etc/apt/apt.conf.d/99no-suggests-recommends' << EOF
-APT::Install-Suggests "false";
-APT::Install-Recommends "false";
-APT::AutoRemove::RecommendsImportant "false";
-APT::AutoRemove::SuggestsImportant "false";
-EOF
+# TODO re-enable this
+#cat > '/etc/apt/apt.conf.d/99no-suggests-recommends' << EOF
+#APT::Install-Suggests "false";
+#APT::Install-Recommends "false";
+#APT::AutoRemove::RecommendsImportant "false";
+#APT::AutoRemove::SuggestsImportant "false";
+#EOF
 
 # Apt will fail on the first error by default, which is annoying
 cat > '/etc/apt/apt.conf.d/99retries' << EOF
@@ -45,6 +46,10 @@ apt-get install -y xserver-xorg xinit \
                    menu \
                    thunar xfce4-terminal \
                    xubuntu-icon-theme greybird-gtk-theme
+
+# TODO remove this
+apt install -y xfce4 ubuntu-session
+printf '[Seat:*]\nuser-session=xfce\n' > /etc/lightdm/lightdm.conf.d/99xfce.conf
 
 # Disable guest option in LightDM, just in case (from https://askubuntu.com/a/169105/642930)
 printf '[Seat:*]\nallow-guest=false\n' > /etc/lightdm/lightdm.conf.d/99no-guest.conf

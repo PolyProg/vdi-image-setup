@@ -15,8 +15,10 @@ fi
 read -p 'User: ' User
 read -p 'Password: ' Password
 
-# HACK: Required given the EPFL setup - otherwise Kerberos servers can't be found by realmd
+# Get AD servers
 ADServers="$(dig +short _ldap._tcp.intranet.epfl.ch SRV | cut -d ' ' -f4 | sed -e 's/\.*$//')"
+
+# HACK: Required given the EPFL setup - otherwise Kerberos servers can't be found by realmd
 for Server in $ADServers; do
   ServerIp="$(nslookup $Server | sed -n '5p' | cut -d ' ' -f2)"
   echo "$ServerIp $Server" >> '/etc/hosts'
@@ -29,15 +31,6 @@ done
 
 # Remove timers, our machines are short-lived and we don't want anything messing them up
 ./remove/dangerous/timers.sh
-
-# TODO begin removeme
-./remove/doc.sh
-./remove/locales.sh 'en, en_US.UTF_8'
-./remove/unused-packages.sh
-./remove/apt-cache.sh
-./remove/temp-files.sh
-exit 0
-# end removeme
 
 # Basic utilities
 ./add/software/archiver.sh
@@ -69,31 +62,24 @@ fi
 
 # Contest and doc on the desktop
 if [ "$1" = 'hc2' ]; then
-  CONTEST_HOST='contest.hc2.ch'
+  ContestHost='contest.hc2.ch'
   ./add/desktop-url.sh 'Contest' 'http://contest.hc2.ch'
 else
-  CONTEST_HOST='official.contest.yandex.com contest.yandex.com passport.yandex.com social.yandex.com yastatic.net yandex.st mc.yandex.ru clck.yandex.ru'
+  ContestHost='official.contest.yandex.com contest.yandex.com passport.yandex.com social.yandex.com yastatic.net yandex.st mc.yandex.ru clck.yandex.ru'
   ./add/desktop-url.sh 'Contest' 'https://official.contest.yandex.com/santa/'
 fi
 
 ./add/desktop-url.sh 'Documentation' 'http://doc.hc2.ch'
 
-# Swiss keyboard
-./configure/keyboard.sh 'ch' 'fr'
-
 # Configure firewall, in order:
 # - apt repositories
 # - Oracle javadocs (required for Eclipse to use it)
-# - VDI connection brokers
-# - VDI web access
 # - Documentation
 # - Contest server
 ./configure/firewall.sh ch.archive.ubuntu.com security.ubuntu.com ppa.launchpad.net \
                         docs.oracle.com \
-                        itvdiconnect01.epfl.ch itvdiconnect02.epfl.ch itvdiconnect03.epfl.ch itvdiconnect04.epfl.ch \
-                        itvdiweb01.epfl.ch itvdiweb02.epfl.ch vdi.epfl.ch \
                         doc.hc2.ch \
-                        $CONTEST_HOST
+                        $ContestHost
 
 # Remove documentation, we don't need it (only man pages)
 ./remove/doc.sh

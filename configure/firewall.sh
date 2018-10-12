@@ -15,22 +15,12 @@ for url in "$@"; do
   iptables -A OUTPUT -p tcp -d "$url" --dport 443 -j ACCEPT
 done
 
-# Allow loopback
-iptables -I INPUT 1 -i lo -j ACCEPT
+# Reject rest of HTTP/S (reject, not drop, so it's clear to users that it will not work)
+iptables -A OUTPUT -p tcp --dport 80 -j REJECT
+iptables -A OUTPUT -p tcp --dport 443 -j REJECT
 
-# Allow existing connections
-iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-
-# Drop rest of HTTP
-iptables -A OUTPUT -p tcp --dport 80 -j DROP
-
-# Drop rest of HTTPS
-iptables -A OUTPUT -p tcp --dport 443 -j DROP
-
-# Allow vWorkspace Data Collector and RDP, respectively
-# These are not necessary now, but useful if this scripts bans more output in the future.
-iptables -I INPUT 2 -p tcp --dport 5203 -j ACCEPT
-iptables -I INPUT 2 -p tcp --dport 3389 -j ACCEPT
+# TODO: More clever rules that also disallow the other protocols to the outside?
+#       Or do we not care since the machine needs to access AD and a bunch of other stuff anyway?
 
 # Persist rules (with debconf-set-selections to make it unattended)
 echo 'iptables-persistent iptables-persistent/autosave_v4 boolean true' | debconf-set-selections

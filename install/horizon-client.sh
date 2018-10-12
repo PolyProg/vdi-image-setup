@@ -49,7 +49,37 @@ EOF
 # Patch the SSSD config to make it case-insensitive, as requested by VMware Horizon
 sed -i '/\[domain/a case_sensitive = false' /etc/sssd/sssd.conf
 
-# TODO consider purging some of the deps like Zenity, it even includes emacs common files...
+
+### Set the default keyboard to match the keyboard of the VMware Horizon View client on login
+
+cat > '/opt/keyboard.sh' << 'EOF'
+#!/bin/sh
+
+# sleep is required for it to work... for some reason.
+sleep 2
+setxkbmap $(cat /var/log/vmware/keyboardLayout)
+EOF
+
+chmod 755 '/opt/keyboard.sh'
+
+mkdir -p '/etc/skel/.config/autostart'
+cat > '/etc/skel/.config/autostart/Keyboard.desktop' << EOF
+[Desktop Entry]
+Version=1.0
+Name=Script
+Type=Application
+Exec=/opt/keyboard.sh
+Terminal=false
+StartupNotify=false
+Hidden=false
+EOF
+
+chmod 755 '/etc/skel/.config/autostart/Keyboard.desktop'
+
+# Make it work for root as well
+mkdir -p '/root/.config/autostart'
+cp '/etc/skel/.config/autostart/Keyboard.desktop' '/root/.config/autostart/Keyboard.desktop'
+
 
 # Restore the working directory
 cd "$WorkDir"
