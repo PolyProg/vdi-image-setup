@@ -34,20 +34,23 @@ cp '/root/.bashrc' '/etc/skel/.bashrc'
 # xfwm4 is the window manager, xfdesktop4 the desktop, xfce4-panel the panels, and xfce4-session the session
 # libglib2.0-bin allows changing the themes and icons
 # x11-xserver-utils and policykit-1 contain required things for proper session login/logout
-# LightDM is the display manager, and requires a greeter to go along with it
+# LightDM is the display manager, and requires a greeter to go along with it (Unity because VMware Horizon needs it)
 # The menu package automatically puts apps in the Applications menu
 # Thunar is the XFCE file manager, xfce4-terminal is a terminal
 # The themes are there to make it look decent
 apt-get install -y xserver-xorg xinit \
                    xfwm4 xfdesktop4 xfce4-panel xfce4-session \
                    libglib2.0-bin x11-xserver-utils policykit-1 \
-                   lightdm lightdm-gtk-greeter \
+                   lightdm unity-greeter \
                    menu \
                    thunar xfce4-terminal \
                    xubuntu-icon-theme greybird-gtk-theme
 
 # Disable guest option in LightDM, just in case (from https://askubuntu.com/a/169105/642930)
 printf '[Seat:*]\nallow-guest=false\n' > /etc/lightdm/lightdm.conf.d/99no-guest.conf
+
+# Remove KWallet and GNOME Keyring integration that LightDM adds to PAM (we don't have either, they cause errors)
+find /etc/pam.d -type f -print0 | xargs -0 sed -i '/kwallet\|gnome_keyring/d'
 
 # Set the GTK theme, the default one makes Windows 95 look good
 cat > '/usr/share/glib-2.0/schemas/99default-theme.gschema.override' << EOF
