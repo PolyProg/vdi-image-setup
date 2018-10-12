@@ -12,8 +12,8 @@ fi
 apt-get install -y openjdk-8-jre
 
 # Download and extract the Eclipse Platform, i.e. the shell without any plugins whatsoever
-wget -O eclipse.tar.gz 'http://download.eclipse.org/eclipse/downloads/drops4/R-4.8-201806110500/download.php?dropFile=eclipse-platform-4.8-linux-gtk-x86_64.tar.gz&r=1'
-tar -zxvf eclipse.tar.gz -C /opt
+wget -O eclipse.tar.gz 'http://mirror.switch.ch/eclipse/eclipse/downloads/drops4/R-4.8-201806110500/eclipse-platform-4.8-linux-gtk-x86_64.tar.gz'
+tar -xf eclipse.tar.gz -C /opt
 rm eclipse.tar.gz
 
 # Install it
