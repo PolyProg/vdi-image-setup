@@ -19,9 +19,6 @@ done
 iptables -A OUTPUT -p tcp --dport 80 -j REJECT
 iptables -A OUTPUT -p tcp --dport 443 -j REJECT
 
-# TODO: More clever rules that also disallow the other protocols to the outside?
-#       Or do we not care since the machine needs to access AD and a bunch of other stuff anyway?
-
 # Persist rules (with debconf-set-selections to make it unattended)
 echo 'iptables-persistent iptables-persistent/autosave_v4 boolean true' | debconf-set-selections
 echo 'iptables-persistent iptables-persistent/autosave_v6 boolean true' | debconf-set-selections
