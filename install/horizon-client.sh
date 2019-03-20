@@ -8,8 +8,10 @@ WorkDir=$(pwd)
 # Install the dependencies:
 # - First line contains those that are officially declared
 # - Second line contains those that are not...
+# - xserver-xorg-video-vmware is required to properly handle non-800x600 displays
 apt-get install -y open-vm-tools-desktop python-dbus python-gobject \
-                   zenity pulseaudio-utils xinput
+                   zenity pulseaudio-utils xinput \
+                   xserver-xorg-video-vmware
 
 # Untar the client, in a folder we know
 cd /opt
