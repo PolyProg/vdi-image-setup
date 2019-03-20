@@ -1,5 +1,5 @@
 #!/bin/sh
-# Installs Eclipse 4.8 "Photon"
+# Installs Eclipse 4.10
 
 # Install desktop-file-utils for desktop-file-install
 NeedDfu=0
@@ -12,7 +12,7 @@ fi
 apt-get install -y openjdk-8-jre
 
 # Download and extract the Eclipse Platform, i.e. the shell without any plugins whatsoever
-wget -O eclipse.tar.gz 'http://mirror.switch.ch/eclipse/eclipse/downloads/drops4/R-4.8-201806110500/eclipse-platform-4.8-linux-gtk-x86_64.tar.gz'
+wget -O eclipse.tar.gz 'http://mirror.ibcp.fr/pub/eclipse/eclipse/downloads/drops4/R-4.10-201812060815/eclipse-platform-4.10-linux-gtk-x86_64.tar.gz'
 tar -xf eclipse.tar.gz -C /opt
 rm eclipse.tar.gz
 
@@ -42,7 +42,8 @@ desktop-file-install /usr/share/applications/eclipse.desktop
 install() {
   eclipse -nosplash -application org.eclipse.equinox.p2.director \
           -repository $1 \
-          -installIU $2
+          -installIU $2 \
+          -destination '/opt/eclipse'
 }
 
 # Java
