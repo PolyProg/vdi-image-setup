@@ -10,8 +10,7 @@ fi
 
 add-apt-repository -y ppa:damien-moore/codeblocks-stable
 apt-get update
-# Code::Blocks uses xterm to run console programs by default
-# TODO figure out how to make it use the xfce terminal instead
+# Code::Blocks uses xterm to run console programs by default, let's not start depending on a specific terminal here
 apt-get install -y codeblocks codeblocks-contrib xterm
 
 
