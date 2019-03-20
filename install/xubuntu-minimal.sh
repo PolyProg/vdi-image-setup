@@ -53,8 +53,7 @@ printf '[Seat:*]\nuser-session=xfce\n' > /etc/lightdm/lightdm.conf.d/99xfce.conf
 printf '[Seat:*]\nallow-guest=false\n' > /etc/lightdm/lightdm.conf.d/99no-guest.conf
 
 # Remove KWallet and GNOME Keyring integration that LightDM adds to PAM (we don't have either, they cause errors)
-# TODO: This only works sometimes. Weird race condition? Do we need a sleep before it? Why?
-find /etc/pam.d -type f -print0 | xargs -0 sed -i '/kwallet\|gnome_keyring/d'
+sed -i '/kwallet\|gnome_keyring/d' '/etc/pam.d/lightdm'
 
 # Set the GTK theme, the default one makes Windows 95 look good
 cat > '/usr/share/glib-2.0/schemas/99default-theme.gschema.override' << EOF
