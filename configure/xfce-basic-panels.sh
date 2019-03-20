@@ -1,6 +1,5 @@
 #!/bin/sh
 # Sets the default XFCE desktop configuration (so new users don't get prompts)
-# TODO what can we remove here?
 
 mkdir -p /etc/skel/.config/menus
 mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml
@@ -139,7 +138,7 @@ cat > '/etc/skel/.config/menus/xfce-applications.menu' << 'EOF'
 </Menu>
 EOF
 
-# Desktop(s)
+# Desktop
 cat > '/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml' << 'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <channel name="xfce4-desktop" version="1.0">
@@ -193,6 +192,17 @@ cat > '/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml' << 'E
       <property name="style" type="uint" value="0"/>
     </property>
     <property name="plugin-5" type="string" value="clock"/>
+  </property>
+</channel>
+EOF
+
+# Other settings
+# We set this just to disable workspaces so people don't get confused by accidentally switching between workspaces
+cat > '/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml' << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<channel name="xfwm4" version="1.0">
+  <property name="general" type="empty">
+    <property name="workspace_count" type="int" value="1"/>
   </property>
 </channel>
 EOF
