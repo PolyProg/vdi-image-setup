@@ -55,8 +55,10 @@ fi
 ./add/software/eclipse.sh
 ./add/software/emacs.sh
 ./add/software/geany.sh
+./add/software/kate.sh
 ./add/software/netbeans.sh
 ./add/software/vim.sh
+./add/software/vscode.sh
 
 # Basic desktop panels
 ./configure/xfce-basic-panels.sh
@@ -77,12 +79,12 @@ fi
 # - Oracle javadocs (required for Eclipse to use it)
 # - Documentation
 # - Contest server
-./configure/firewall.sh ch.archive.ubuntu.com security.ubuntu.com ppa.launchpad.net packagecloud.io \
+./configure/firewall.sh ch.archive.ubuntu.com security.ubuntu.com ppa.launchpad.net packagecloud.io packages.microsoft.com \
                         docs.oracle.com \
                         doc.hc2.ch \
                         $ContestHost
 
-# Remove documentation, we don't need it (only man pages)
+# Remove documentation, we don't need it (we only need man pages)
 ./remove/doc.sh
 
 # Remove locales other than English
