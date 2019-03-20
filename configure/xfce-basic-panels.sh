@@ -18,6 +18,9 @@ cat > '/etc/skel/.config/menus/xfce-applications.menu' << 'EOF'
     <Include>
         <Category>X-Xfce-Toplevel</Category>
     </Include>
+    <Exclude>
+        <Filename>exo-mail-reader.desktop</Filename>
+    </Exclude>
 
     <Layout>
         <Filename>exo-terminal-emulator.desktop</Filename>
@@ -25,24 +28,9 @@ cat > '/etc/skel/.config/menus/xfce-applications.menu' << 'EOF'
         <Filename>exo-web-browser.desktop</Filename>
         <Separator/>
         <Merge type="all"/>
-        <Menuname>Settings</Menuname>
         <Separator/>
         <Filename>xfce4-session-logout.desktop</Filename>
     </Layout>
-
-    <Menu>
-        <Name>Settings</Name>
-        <Directory>xfce-settings.directory</Directory>
-        <Include>
-            <Category>Settings</Category>
-        </Include>
-
-        <Layout>
-            <Filename>xfce-settings-manager.desktop</Filename>
-            <Separator/>
-            <Merge type="all"/>
-        </Layout>
-    </Menu>
 
     <Menu>
         <Name>Accessories</Name>
@@ -55,14 +43,6 @@ cat > '/etc/skel/.config/menus/xfce-applications.menu' << 'EOF'
                 <Category>Utility</Category>
             </Or>
         </Include>
-        <Exclude>
-            <Or>
-                <Filename>exo-file-manager.desktop</Filename>
-                <Filename>exo-terminal-emulator.desktop</Filename>
-                <Filename>xfce4-about.desktop</Filename>
-                <Filename>xfce4-run.desktop</Filename>
-            </Or>
-        </Exclude>
     </Menu>
 
     <Menu>
@@ -130,6 +110,14 @@ cat > '/etc/skel/.config/menus/xfce-applications.menu' << 'EOF'
     </Menu>
 
     <Menu>
+        <Name>Settings</Name>
+        <Directory>xfce-settings.directory</Directory>
+        <Include>
+            <Category>Settings</Category>
+        </Include>
+    </Menu>
+
+    <Menu>
         <Name>System</Name>
         <Directory>xfce-system.directory</Directory>
         <Include>
@@ -138,11 +126,6 @@ cat > '/etc/skel/.config/menus/xfce-applications.menu' << 'EOF'
                 <Category>System</Category>
             </Or>
         </Include>
-        <Exclude>
-            <Or>
-                <Filename>xfce4-session-logout.desktop</Filename>
-            </Or>
-        </Exclude>
     </Menu>
 
     <Menu>
@@ -164,21 +147,6 @@ cat > '/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml' << 
     <property name="screen0" type="empty">
       <property name="monitorrdp0" type="empty">
         <property name="workspace0" type="empty">
-          <property name="color-style" type="int" value="0"/>
-          <property name="image-style" type="int" value="5"/>
-          <property name="last-image" type="string" value="/usr/share/backgrounds/xfce/xfce-teal.jpg"/>
-        </property>
-        <property name="workspace1" type="empty">
-          <property name="color-style" type="int" value="0"/>
-          <property name="image-style" type="int" value="5"/>
-          <property name="last-image" type="string" value="/usr/share/backgrounds/xfce/xfce-teal.jpg"/>
-        </property>
-        <property name="workspace2" type="empty">
-          <property name="color-style" type="int" value="0"/>
-          <property name="image-style" type="int" value="5"/>
-          <property name="last-image" type="string" value="/usr/share/backgrounds/xfce/xfce-teal.jpg"/>
-        </property>
-        <property name="workspace3" type="empty">
           <property name="color-style" type="int" value="0"/>
           <property name="image-style" type="int" value="5"/>
           <property name="last-image" type="string" value="/usr/share/backgrounds/xfce/xfce-teal.jpg"/>
@@ -213,7 +181,6 @@ cat > '/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml' << 'E
         <value type="int" value="1"/>
         <value type="int" value="3"/>
         <value type="int" value="15"/>
-        <value type="int" value="4"/>
         <value type="int" value="5"/>
       </property>
     </property>
@@ -225,7 +192,6 @@ cat > '/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml' << 'E
       <property name="expand" type="bool" value="true"/>
       <property name="style" type="uint" value="0"/>
     </property>
-    <property name="plugin-4" type="string" value="pager"/>
     <property name="plugin-5" type="string" value="clock"/>
   </property>
 </channel>
