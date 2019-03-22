@@ -77,13 +77,14 @@ fi
 # - Oracle javadocs (required for Eclipse to use it)
 # - Documentation
 # - Contest server
-./configure/firewall.sh ch.archive.ubuntu.com security.ubuntu.com packagecloud.io packages.microsoft.com \
+./configure/firewall.sh ch.archive.ubuntu.com security.ubuntu.com packages.microsoft.com \
                         docs.oracle.com \
                         doc.hc2.ch \
                         $ContestHost
 
 # Final cleanup
-./remove/apt-cache.sh
-./remove/doc.sh
 ./remove/locales.sh 'en, en_US.UTF_8'
+./remove/doc.sh
 ./remove/temp-files.sh
+# This needs to be last since other scripts assume apt-get works fine
+./remove/apt-cache.sh
