@@ -1,12 +1,10 @@
-Minimal Ubuntu system on a vWorkspace VDI infrastructure.
-
+Minimal Ubuntu system on a VMware Horizon View infrastructure.
 
 # Goals
 
 - Keep it simple. The goal is not to have the absolute most minimal system. We only remove low-hanging fruit.
 - Keep it layered. The base `install.sh` script has a minimal system with no tools aside from a terminal and a file manager,
   additional scripts can be built on top of it using the other scripts; see `install-polyprog.sh` for an example.
-
 
 # Installation instructions
 
@@ -18,7 +16,7 @@ Minimal Ubuntu system on a vWorkspace VDI infrastructure.
  - Storage: The storage you want
  - Compatible with: leave unchanged
  - Guest OS Family: Linux, Guest OS Version: Ubuntu Linux (64-bit)
- - CPU : 2, Memory: 4096 MB, New Hard disk: 16 GB, Video card: 64 MB total video memory, you may need to change the network here
+ - CPU : 2, Memory: 4096 MB, New Hard disk: 16 GB, Video card: 64 MB total video memory; you may need to change the network here
  - Finish
 3. Still in vSphere, right-click your VM selected > "Launch console"
 4. In the remote console:

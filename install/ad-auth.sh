@@ -11,7 +11,7 @@
 # - sssd and dependencies (by default only recommended...)
 # - realmd and dependencies
 #   note that without policykit-1, realm doesn't work as root, see https://bugs.freedesktop.org/show_bug.cgi?id=90683
-# TODO: sssd-tools requires python2 while everything else is happy with 3, can we not install it?
+# NOTE: sssd-tools requires python2 while everything else is happy with 3, unfortunately
 apt-get install -y sssd libnss-sss libpam-sss libsss-sudo libsasl2-modules-gssapi-mit \
                    realmd policykit-1 adcli sssd-tools
 

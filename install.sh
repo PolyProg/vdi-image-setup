@@ -34,7 +34,7 @@ if [ "$(echo $NetworkInterface | wc -l)" -ne '1' ]; then
   exit 1
 fi
 
-if [ "$(id -u)" != '0' ]; then
+if [ $(id -u) -ne 0 ]; then
   echo 'Please run this script as root' >&2
   exit 1
 fi
@@ -49,7 +49,7 @@ if [ ! -f '/opt/horizon-client.tar.gz' ]; then
   exit 1
 fi
 
-if [ "$#" -ne 4 ]; then
+if [ $# -ne 4 ]; then
   echo "Usage: $0 <AD user> <AD user password> <AD domain> <AD computer OU>" >&2
   exit 1
 fi
@@ -60,3 +60,4 @@ fi
 ./install/xubuntu-minimal.sh
 ./install/ad-auth.sh "$1" "$2" "$3" "$4"
 ./install/horizon-client.sh
+./install/fixes.sh

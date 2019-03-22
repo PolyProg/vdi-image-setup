@@ -22,11 +22,6 @@ apt-get update
 apt-get upgrade -y
 apt-get autoremove -y --purge
 
-# i2c_piix4 is a module that deals with the PIIX4 chip's System Management Bus (SMBus), but VMWare doesn't support it
-# Not a huge deal, it just prints an error line on boot, but that's not very nice, we want no errors
-echo '# Disabled since VMWare does not support it' >> '/etc/modprobe.d/blacklist.conf'
-echo 'blacklist i2c_piix4' >> '/etc/modprobe.d/blacklist.conf'
-
 # The default .bashrc for new users is slightly different than root's, which makes no sense.
 cp '/root/.bashrc' '/etc/skel/.bashrc'
 
@@ -51,11 +46,6 @@ printf '[Seat:*]\nuser-session=xfce\n' > /etc/lightdm/lightdm.conf.d/99xfce.conf
 
 # Disable guest option in LightDM, just in case (from https://askubuntu.com/a/169105/642930)
 printf '[Seat:*]\nallow-guest=false\n' > /etc/lightdm/lightdm.conf.d/99no-guest.conf
-
-# Remove KWallet and GNOME Keyring integration that LightDM adds to PAM (we don't have either, they cause errors)
-# TODO: this does not work, why? inserting temp cp...
-sed -i '/kwallet\|gnome_keyring/d' '/etc/pam.d/lightdm'
-cp '/etc/pam.d/lightdm' '/opt/lightdm-backup'
 
 # Set the GTK theme, the default one makes Windows 95 look good
 cat > '/usr/share/glib-2.0/schemas/99default-theme.gschema.override' << EOF

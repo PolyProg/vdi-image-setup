@@ -63,6 +63,9 @@ fi
 ./configure/xfce-basic-panels.sh
 ./configure/xfce-logout-only.sh
 
+# Keyboard
+./configure/keyboard-layout.sh 'ch fr'
+
 # Contest and doc on the desktop
 if [ "$1" = 'hc2' ]; then
   ContestHost='contest.hc2.ch'
