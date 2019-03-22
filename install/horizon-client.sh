@@ -9,7 +9,7 @@ WorkDir=$(pwd)
 # - First line contains those that are officially declared
 # - Second line contains those that are not...
 # - xserver-xorg-video-vmware is required to properly handle non-800x600 displays
-apt-get install -y open-vm-tools-desktop python-dbus python-gobject \
+apt-get install -y open-vm-tools-desktop python python-dbus python-gobject \
                    zenity pulseaudio-utils xinput \
                    xserver-xorg-video-vmware
 
@@ -29,9 +29,9 @@ cd horizon-client
                        -r no \
                        -C no \
                        -F no \
-                       -U no \
+                       -M yes \
                        -S yes \
-                       -M yes
+                       -U no
 
 # Remove the tar and the folder, not needed any more
 cd ..
@@ -53,7 +53,7 @@ sed -i '/\[domain/a case_sensitive = false' /etc/sssd/sssd.conf
 
 
 ### Set the default keyboard to match the keyboard of the VMware Horizon View client on login
-
+# TODO: check if this works
 cat > '/opt/keyboard.sh' << 'EOF'
 #!/bin/sh
 

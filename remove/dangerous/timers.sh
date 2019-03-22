@@ -2,6 +2,7 @@
 # Removes all timed actions from the system
 
 apt purge -y --autoremove cron logrotate
-systemctl mask systemd-tmpfiles-clean.timer
-systemctl mask apt-daily.timer
-systemctl mask apt-daily-upgrade.timer
+
+for $Timer in 'systemd-tmpfiles-clean' 'apt-daily' 'apt-daily-upgrade' 'fstrim' 'motd-news' 'ureadahead-stop'; do
+  systemctl mask "$Timer.timer"
+done

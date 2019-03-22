@@ -22,4 +22,4 @@ EOF
 # Install it, run it, immediately uninstall it as we don't need to keep it
 apt-get install -y localepurge
 localepurge
-apt-get purge -y localepurge
+apt-get purge -y --autoremove localepurge

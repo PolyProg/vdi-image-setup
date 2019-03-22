@@ -1,6 +1,8 @@
 #!/bin/sh
 # Sets the desktop background to the given URL
 
+# TODO make this work
+
 if [ $# -ne 1 ]; then
   echo "This script expects an URL as its single argument." >&2
   exit 1

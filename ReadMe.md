@@ -10,7 +10,7 @@ Minimal Ubuntu system on a vWorkspace VDI infrastructure.
 
 # Installation instructions
 
-1. Download the Ubuntu 16.04 LTS "mini" ISO from https://help.ubuntu.com/community/Installation/MinimalCD
+1. Download the Ubuntu 18.04 LTS "mini" ISO from https://help.ubuntu.com/community/Installation/MinimalCD
 2. In vSphere Web Client, go to "VMs and Templates" > Right-click the folder you want, "New Virtual Machine" > "New Virtual Machine..."
  - Create a new virtual machine
  - Name: The name you want

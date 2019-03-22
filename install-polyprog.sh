@@ -41,11 +41,9 @@ done
 ./add/languages/c_and_cpp.sh
 ./add/languages/java.sh
 ./add/languages/python2.sh
+./add/languages/python3.sh
 
-if [ "$1" = 'hc2' ]; then
-  ./add/languages/python3.sh
-else
-  ./add/languages/obsolete/python3.2.sh
+if [ "$1" = 'santa' ]; then
   ./add/languages/scala.sh
 fi
 
@@ -79,18 +77,13 @@ fi
 # - Oracle javadocs (required for Eclipse to use it)
 # - Documentation
 # - Contest server
-./configure/firewall.sh ch.archive.ubuntu.com security.ubuntu.com ppa.launchpad.net packagecloud.io packages.microsoft.com \
+./configure/firewall.sh ch.archive.ubuntu.com security.ubuntu.com packagecloud.io packages.microsoft.com \
                         docs.oracle.com \
                         doc.hc2.ch \
                         $ContestHost
 
-# Remove documentation, we don't need it (we only need man pages)
-./remove/doc.sh
-
-# Remove locales other than English
-./remove/locales.sh 'en, en_US.UTF_8'
-
 # Final cleanup
-./remove/unused-packages.sh
 ./remove/apt-cache.sh
+./remove/doc.sh
+./remove/locales.sh 'en, en_US.UTF_8'
 ./remove/temp-files.sh

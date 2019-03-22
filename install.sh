@@ -1,6 +1,6 @@
 #!/bin/sh
-# Installs the necessary tools to run Xubuntu Core 16.04 on VMware Horizon
-# Must be run on an Ubuntu Mini 16.04 x64 image
+# Installs the necessary tools to run Xubuntu Core 18.04 on VMware Horizon
+# Must be run on an Ubuntu Mini 18.04 x64 image
 # Written by Solal Pirelli
 
 ### Check for prerequisites
@@ -18,8 +18,8 @@ if [ "$DISTRIB_ID" != 'Ubuntu' ]; then
   exit 1
 fi
 
-if [ "$DISTRIB_RELEASE" != '16.04' ]; then
-  echo 'Please run this script on Ubuntu 16.04' >&2
+if [ "$DISTRIB_RELEASE" != '18.04' ]; then
+  echo 'Please run this script on Ubuntu 18.04' >&2
   exit 1
 fi
 
