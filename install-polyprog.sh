@@ -26,6 +26,9 @@ done
 ./install.sh "$User" "$Password" \
              'INTRANET.EPFL.CH' \
              'OU=PolyProg,OU=StudentVDI,OU=VDI,OU=DIT-Services Communs,DC=intranet,DC=epfl,DC=ch'
+if [ $? -ne 0 ]; then
+  exit 1;
+fi
 
 # Remove timers, our machines are short-lived and we don't want anything messing them up
 ./remove/dangerous/timers.sh
