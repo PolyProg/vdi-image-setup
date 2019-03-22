@@ -15,12 +15,10 @@ fi
 read -p 'User: ' User
 read -p 'Password: ' Password
 
-# Get AD servers
-ADServers="$(dig +short _ldap._tcp.intranet.epfl.ch SRV | cut -d ' ' -f4 | sed -e 's/\.*$//')"
-
 # HACK: Required given the EPFL setup - otherwise Kerberos servers can't be found by realmd
+ADServers="$(dig +short _ldap._tcp.intranet.epfl.ch SRV | cut -d ' ' -f4 | sed -e 's/\.*$//')"
 for Server in $ADServers; do
-  ServerIp="$(nslookup $Server | sed -n '5p' | cut -d ' ' -f2)"
+  ServerIp="$(nslookup $Server | sed -n '6p' | cut -d ' ' -f2)"
   echo "$ServerIp $Server" >> '/etc/hosts'
 done
 
