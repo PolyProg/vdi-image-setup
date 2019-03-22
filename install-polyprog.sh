@@ -59,8 +59,9 @@ fi
 ./add/software/vim.sh
 ./add/software/vscode.sh
 
-# Basic desktop panels
+# XFCE config
 ./configure/xfce-basic-panels.sh
+./configure/xfce-logout-only.sh
 
 # Contest and doc on the desktop
 if [ "$1" = 'hc2' ]; then
