@@ -51,6 +51,9 @@ EOF
 # Patch the SSSD config to make it case-insensitive, as requested by VMware Horizon
 sed -i '/\[domain/a case_sensitive = false' /etc/sssd/sssd.conf
 
+# VMWare Horizon expects a MAC address for DHCP, not the new Ubuntu 18 default of RFC4361-compliant IDs
+sed -i '/dhcp4/a\ \ \ \ \ \ dhcp-identifier: mac' '/etc/netplan/'*
+
 
 ### Set the default keyboard to match the keyboard of the VMware Horizon View client on login
 # TODO: check if this works
