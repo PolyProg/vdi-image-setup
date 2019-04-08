@@ -9,7 +9,7 @@ if [ ! -x "$(command -v desktop-file-install)" ]; then
 fi
 
 # Install Java first, if needed
-if [ ! -x "$(command java)" ]; then
+if [ ! -x "$(command -v java)" ]; then
   apt-get install -y openjdk-11-jre
 fi
 
