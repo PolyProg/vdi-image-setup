@@ -8,8 +8,10 @@ if [ ! -x "$(command -v desktop-file-install)" ]; then
   NeedDfu=1
 fi
 
-# Install Java first
-apt-get install -y openjdk-11-jre
+# Install Java first, if needed
+if [ ! -x "$(command java)" ]; then
+  apt-get install -y openjdk-11-jre
+fi
 
 # Download and extract the Eclipse Platform, i.e. the shell without any plugins whatsoever
 # NOTE: The url is sometimes brittle... hard to tell when they drop old versions
