@@ -42,7 +42,7 @@ desktop-file-install '/usr/share/applications/eclipse.desktop'
 
 ### Add tools
 
-install() {
+addIU() {
   eclipse -nosplash -application org.eclipse.equinox.p2.director \
           -repository $1 \
           -installIU $2 \
@@ -51,24 +51,24 @@ install() {
 
 # Java
 if [ -x "$(command -v javac)" ]; then
-  install 'http://download.eclipse.org/releases/2019-03' 'org.eclipse.jdt.feature.group'
+  addIU 'http://download.eclipse.org/releases/2019-03' 'org.eclipse.jdt.feature.group'
 fi
 
 # C/C++
 if [ -x "$(command -v gcc)" ]; then
   # Eclipse uses make to compile
   apt-get install -y make
-  install 'http://download.eclipse.org/releases/2019-03' 'org.eclipse.cdt.feature.group'
+  addIU 'http://download.eclipse.org/releases/2019-03' 'org.eclipse.cdt.feature.group'
 fi
 
 # PyDev
 if [ -x "$(command -v python)" ] || [ -x "$(command -v python3)" ]; then
-  install 'http://www.pydev.org/updates' 'org.python.pydev.feature.feature.group'
+  addIU 'http://www.pydev.org/updates' 'org.python.pydev.feature.feature.group'
 fi
 
 # Scala IDE
 if [ -x "$(command -v scalac)" ]; then
-  install 'http://downloads.typesafe.com/scalaide/sdk/lithium/e47/scala212/stable/site' 'org.scala-ide.sdt.feature.feature.group'
+  addIU 'http://downloads.typesafe.com/scalaide/sdk/lithium/e47/scala212/stable/site' 'org.scala-ide.sdt.feature.feature.group'
 fi
 
 
