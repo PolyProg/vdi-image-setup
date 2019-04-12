@@ -8,4 +8,3 @@ echo 'blacklist i2c_piix4' >> '/etc/modprobe.d/blacklist.conf'
 
 # Remove KWallet and GNOME Keyring integration that LightDM adds to PAM (we don't have either, they cause errors)
 sed -i '/kwallet\|gnome_keyring/d' '/etc/pam.d/lightdm'
-cp '/etc/pam.d/lightdm' '/opt/lightdm-backup'

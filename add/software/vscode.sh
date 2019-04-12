@@ -18,10 +18,7 @@ if [ -x "$(command -v javac)" ]; then
   code --install-extension 'vscjava.vscode-java-debug'
 fi
 
-# C and C++ support
-if [ -x "$(command -v gcc)" ]; then
-  code --install-extension 'ms-vscode.cpptools'
-fi
+# No C/C++, the extension needs to install dependencies when first run, out of the question in our scenario
 
 # Python support
 if [ -x "$(command -v python)" ] || [ -x "$(command -v python3)" ]; then
