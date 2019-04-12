@@ -33,5 +33,9 @@ chmod 700 /opt/ad-join.sh
 # Run the script now to join once
 /opt/ad-join.sh
 
+# Set homedirs to the expected format, some software (e.g. NetBeans) assumes it's /home/user,
+# but by default it's /home/user@domain
+sed -i 's|fallback_homedir.*|fallback_homedir = /home/%u|' '/etc/sssd/sssd.conf'
+
 # Make the script self-destruct the next time it's run, since it contains a password
 echo 'rm -f /opt/ad-join.sh' >> /opt/ad-join.sh
