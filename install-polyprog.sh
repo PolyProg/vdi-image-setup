@@ -55,7 +55,6 @@ fi
 ./add/software/emacs.sh
 ./add/software/geany.sh
 ./add/software/kate.sh
-./add/software/netbeans.sh
 ./add/software/vim.sh
 ./add/software/vscode.sh
 
